@@ -1,0 +1,98 @@
+package bean;
+
+public class UserBean {
+
+	private String FiratName;
+	private String LastName;
+	private String Dob;
+	private String Role;
+	private String SecutiryQuestion;
+	private String MobailNo;
+	private String Gender;
+	private String Hobby;
+	private String Email;
+	private String Password;
+	
+	
+	
+	public String getFiratName() {
+		return FiratName;
+	}
+
+	public void setFiratName(String firatName) {
+		FiratName = firatName;
+	}
+
+	public String getLastName() {
+		return LastName;
+	}
+
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+
+	public String getDob() {
+		return Dob;
+	}
+
+	public void setDob(String dob) {
+		Dob = dob;
+	}
+
+	public String getRole() {
+		return Role;
+	}
+
+	public void setRole(String role) {
+		Role = role;
+	}
+
+	public String getSecutiryQuestion() {
+		return SecutiryQuestion;
+	}
+
+	public void setSecutiryQuestion(String secutiryQuestion) {
+		SecutiryQuestion = secutiryQuestion;
+	}
+
+	public String getMobailNo() {
+		return MobailNo;
+	}
+
+	public void setMobailNo(String mobailNo) {
+		MobailNo = mobailNo;
+	}
+
+	public String getGender() {
+		return Gender;
+	}
+
+	public void setGender(String gender) {
+		Gender = gender;
+	}
+
+	public String getHobby() {
+		return Hobby;
+	}
+
+	public void setHobby(String hobby) {
+		Hobby = hobby;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
+}

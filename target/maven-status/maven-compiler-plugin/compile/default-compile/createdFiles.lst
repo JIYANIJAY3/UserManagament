@@ -1,0 +1,5 @@
+dao\RegistrationDaoInterface.class
+dao\RegistrationDao.class
+bean\UserBean.class
+servlet\Registration.class
+dao\DataBaseConnection.class
