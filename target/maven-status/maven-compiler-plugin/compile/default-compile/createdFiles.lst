@@ -1,5 +1,9 @@
 dao\RegistrationDaoInterface.class
-dao\RegistrationDao.class
-bean\UserBean.class
+service\FormDataValidationClass.class
+service\FormDataValidationInterface.class
 servlet\Registration.class
 dao\DataBaseConnection.class
+dao\RegistrationDao.class
+util\ServletUtilClass.class
+filter\ValidationFilter.class
+bean\UserBean.class

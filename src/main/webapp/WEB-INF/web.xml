@@ -19,4 +19,13 @@
     <servlet-name>Registration</servlet-name>
     <url-pattern>/Registration</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>ValidationFilter</display-name>
+    <filter-name>ValidationFilter</filter-name>
+    <filter-class>filter.ValidationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ValidationFilter</filter-name>
+    <url-pattern>/Registration</url-pattern>
+  </filter-mapping>
 </web-app>

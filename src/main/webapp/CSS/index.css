@@ -29,3 +29,9 @@
 .error {
     color: red;
 }
+
+#image-preview {
+    border-radius: 8px;
+    border: 2px solid;
+    margin-bottom: 20px
+}

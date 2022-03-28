@@ -1,5 +1,7 @@
 package bean;
 
+import jakarta.servlet.http.Part;
+
 public class UserBean {
 
 	private String FiratName;
@@ -9,12 +11,39 @@ public class UserBean {
 	private String SecutiryQuestion;
 	private String MobailNo;
 	private String Gender;
+	private String answer;
+	private String language;
+	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
 	private String Hobby;
 	private String Email;
 	private String Password;
+	private Part profile;
 	
 	
-	
+	public Part getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Part profile) {
+		this.profile = profile;
+	}
+
 	public String getFiratName() {
 		return FiratName;
 	}

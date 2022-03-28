@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 
 <head>
@@ -14,12 +15,18 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
+
+<link
+	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="CSS/index.css">
 <link rel="stylesheet" href="CSS/address.css">
+
 </head>
 
 <body>
@@ -31,8 +38,20 @@
 						style="border-radius: 15px;">
 						<div class="card-body p-4 p-md-5">
 							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-							
-							<form action="Registration" id="form" enctype="multipart/form-data">
+							<!-- 
+							<div class="container text-center">
+								<div class="spinner-border loader" role="status" style="display:non">
+									
+								</div>
+								<span class="sr-only">Loading...</span>
+							</div> -->
+
+							<div class="container text-center">
+								<h5 id="massage"></h5>
+							</div>
+
+							<form action="Registration" method="post" id="form"
+								enctype="multipart/form-data">
 
 								<div class="row">
 									<div class="col-md-6 mb-4">
@@ -62,8 +81,11 @@
 
 										<div class="form-outline datepicker w-100">
 											<label for="birthdayDate" class="form-label">Birthday</label>
-											<input type="text" class="form-control form-control-lg"
-												id="birthdayDate" name="date" />
+											<!-- <input type="text" class="form-control form-control-lg"
+												id="birthdayDate" name="date" /> -->
+											<!-- 				<input type="date" id="birthday" class="form-control name="date"> -->
+											<input type="text" id="datepicker" class="form-control"
+												autocomplete="off">
 										</div>
 
 									</div>
@@ -126,12 +148,12 @@
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox1" name="language" value="JavaScript">
+													id="inlineCheckbox2" name="language" value="JavaScript">
 												<label class="form-check-label" for="inlineCheckbox1">JavaScript</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox1" name="language" value="C++"> <label
+													id="inlineCheckbox3" name="language" value="C++"> <label
 													class="form-check-label" for="inlineCheckbox1">C++</label>
 											</div>
 										</div>
@@ -165,8 +187,10 @@
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" type="file" id="formFile"
-												name="profile">
+												name="profile"
+												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
+										<img id="image-preview" width="100" height="100" />
 									</div>
 								</div>
 								<!-- <div class="mt-4 pt-2">
@@ -219,7 +243,7 @@
 														<div class="form-group">
 															<!-- <input type="text" id="city_0" class="form-control" name="Address[0][city] address" maxlength="64"> -->
 															<label class="control-label" for="city_0">Address</label>
-															<input type="text" id="city_0" class="form-control"
+															<input type="text" id="address_0" class="form-control"
 																name="address" maxlength="64">
 															<p class="help-block help-block-error error"></p>
 														</div>
@@ -272,13 +296,28 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script
 		src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 	<script
 		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 	<script src="address-plugin/cloneData.js" type="text/javascript"></script>
+
 	<!-- <script src="JS/custom.js"></script>
 	<script src="JS/validation.js"></script> -->
+
+
+	<script src="JS/postdata.js"></script>
+	<script>
+		$(function() {
+			$("#datepicker").datepicker({
+				maxDate : new Date(),
+				dateFormat : "yy-mm-dd"
+			});
+		});
+	</script>
+
 	<script>
 		$('a#add-more').cloneData({
 			mainContainerId : 'main-container', // Main container Should be ID
