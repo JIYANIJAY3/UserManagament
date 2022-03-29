@@ -28,4 +28,14 @@
     <filter-name>ValidationFilter</filter-name>
     <url-pattern>/Registration</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckEmailIsPresent</display-name>
+    <servlet-name>CheckEmailIsPresent</servlet-name>
+    <servlet-class>servlet.CheckEmailIsPresent</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckEmailIsPresent</servlet-name>
+    <url-pattern>/CheckEmailIsPresent</url-pattern>
+  </servlet-mapping>
 </web-app>

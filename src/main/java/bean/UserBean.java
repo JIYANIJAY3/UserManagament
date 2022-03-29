@@ -4,6 +4,7 @@ import jakarta.servlet.http.Part;
 
 public class UserBean {
 
+	private int UserId;
 	private String FiratName;
 	private String LastName;
 	private String Dob;
@@ -13,7 +14,15 @@ public class UserBean {
 	private String Gender;
 	private String answer;
 	private String language;
-	
+
+	public int getUserId() {
+		return UserId;
+	}
+
+	public void setUserId(int userId) {
+		UserId = userId;
+	}
+
 	public String getLanguage() {
 		return language;
 	}

@@ -10,23 +10,32 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class ServletUtilClass {
 
-	
-	
-	// Forward Request
-	public static void forward(String msg, String page, HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException, jakarta.servlet.ServletException {
+	static String Error = "Invalid Data";
 
-		request.setAttribute("massage", msg);
+	// Forward Request
+	public static void forward(String page, HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException, jakarta.servlet.ServletException {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 	}
 
 	// Include Request
-	public static void include(String msg, String page, HttpServletRequest request, HttpServletResponse response)
+	public static void include(String page, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, jakarta.servlet.ServletException {
-		
-		request.setAttribute("massage", msg);
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.include(request, response);
+	}
+
+	public static void setErrorMessage(String msg, HttpServletRequest request) {
+		request.setAttribute(Error, msg);
+	}
+
+	public static String getErrorMessage(HttpServletRequest request) {
+		String msgValue = (String) request.getAttribute(Error);
+		if (msgValue == null) {
+			return "";
+		} else {
+			return msgValue;
+		}
 	}
 }

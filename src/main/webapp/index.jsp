@@ -113,7 +113,7 @@
 												type="email" id="emailAddress"
 												class="form-control form-control-lg" name="email" />
 										</div>
-
+										<p id="isEmailPresent"></p>
 									</div>
 									<div class="col-md-6 mb-4 pb-2">
 
@@ -184,6 +184,7 @@
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
+												name="profile"
 												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->
@@ -305,8 +306,10 @@
 	<script src="JS/validation.js"></script> -->
 
 
+
 	<script src="JS/postdata.js"></script>
 	<script src="JS/imagePreview.js"></script>
+	<script src="JS/getdata.js"></script>
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({

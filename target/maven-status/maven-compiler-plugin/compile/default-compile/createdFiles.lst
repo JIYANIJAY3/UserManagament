@@ -1,9 +1,13 @@
+dao\DataBaseConnection.class
+dao\RegistrationDao.class
+bean\UserAddressBean.class
 dao\RegistrationDaoInterface.class
 service\FormDataValidationClass.class
 service\FormDataValidationInterface.class
+service\RegistrationConnectionInterface.class
 servlet\Registration.class
-dao\DataBaseConnection.class
-dao\RegistrationDao.class
+service\RegistrationConnectionClass.class
+servlet\CheckEmailIsPresent.class
 util\ServletUtilClass.class
 filter\ValidationFilter.class
 bean\UserBean.class

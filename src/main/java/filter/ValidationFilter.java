@@ -48,9 +48,9 @@ public class ValidationFilter implements Filter {
 			/*
 			 * req.setAttribute("msg", "enter name"); RequestDispatcher rd =
 			 * request.getRequestDispatcher("index.jsp"); rd.include(req, res);
-			 */	
+			 */
 			try {
-				ServletUtilClass.include("Enter Your FirstName", "index.jsp", req, res);
+				ServletUtilClass.include("index.jsp", req, res);
 			} catch (IOException | javax.servlet.ServletException | ServletException e) {
 				log.info(e);
 				e.printStackTrace();

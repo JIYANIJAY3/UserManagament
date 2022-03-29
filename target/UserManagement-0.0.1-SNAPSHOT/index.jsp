@@ -45,11 +45,9 @@
 								</div>
 								<span class="sr-only">Loading...</span>
 							</div> -->
-
 							<div class="container text-center">
 								<h5 id="massage"></h5>
 							</div>
-
 							<form action="Registration" method="post" id="form"
 								enctype="multipart/form-data">
 
@@ -62,7 +60,6 @@
 												class="form-control form-control-lg" name="fname" /> <label
 												for="fname" class="error"></label>
 										</div>
-
 									</div>
 									<div class="col-md-6 mb-4">
 
@@ -116,7 +113,7 @@
 												type="email" id="emailAddress"
 												class="form-control form-control-lg" name="email" />
 										</div>
-
+										<p id="isEmailPresent"></p>
 									</div>
 									<div class="col-md-6 mb-4 pb-2">
 
@@ -186,10 +183,10 @@
 									<div class="col-md-12">
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
-												class="form-control" type="file" id="formFile"
-												name="profile"
+												class="form-control" multiple type="file" id="userProfile"
 												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
+										<!-- <div id="image-preview"></div> -->
 										<img id="image-preview" width="100" height="100" />
 									</div>
 								</div>
@@ -308,7 +305,10 @@
 	<script src="JS/validation.js"></script> -->
 
 
+
 	<script src="JS/postdata.js"></script>
+	<script src="JS/imagePreview.js"></script>
+	<script src="JS/getdata.js"></script>
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({

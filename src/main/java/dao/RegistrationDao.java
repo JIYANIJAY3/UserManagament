@@ -72,17 +72,15 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 	@Override
 	public int addEmployeeAddress(Connection conn, UserAddressBean addressBean) {
-		
+
 		PreparedStatement ps = null;
-		
+
 		if (conn != null) {
 			try {
 				String setAddress = "INSERT INTO address(AddressId, UserId, Country, Address, PinCode, City, State) "
 						+ "VALUES (NULL,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(setAddress);
-				System.out.println(addressBean.getCountry()[0]);
-				for(int i=0;i<addressBean.getCountry().length;i++)
-				{
+				for (int i = 0; i < addressBean.getCountry().length; i++) {
 					ps.setInt(1, addressBean.getUserId());
 					ps.setString(2, addressBean.getCountry()[i]);
 					ps.setString(3, addressBean.getAddress()[i]);
@@ -94,7 +92,7 @@ public class RegistrationDao implements RegistrationDaoInterface {
 				ps.executeBatch();
 				log.info("done");
 			} catch (Exception e) {
-				// TODO: handle exception
+				log.info(e);
 			}
 		} else {
 			log.error("Connection Is Null");
@@ -108,7 +106,6 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		boolean status = false;
 		int id = 0;
 		if (conn != null) {
 			try {
@@ -127,6 +124,62 @@ public class RegistrationDao implements RegistrationDaoInterface {
 			log.error("Connection Is NULL");
 		}
 		return id;
+	}
+
+	@Override
+	public boolean getEmailIsPresent(Connection conn, String Email) {
+
+		if (conn != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				String sql = " SELECT * FROM user WHERE Email=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, Email);
+				rs = ps.executeQuery();
+				return rs.next();
+			} catch (Exception e) {
+				log.info(e);
+			}
+		} else {
+			log.error("Connection Is NULL");
+		}
+		return false;
+
+	}
+
+	public UserBean getEmployeeByEmail(Connection con, String email) {
+		UserBean userBean = new UserBean();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		if (con != null) {
+			try {
+				String sql = "SELECT * FROM user WHERE Email=?";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, email);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					userBean.setUserId(rs.getInt(1));
+					userBean.setFiratName(rs.getString(2));
+					userBean.setLastName(rs.getString(3));
+					userBean.setDob(rs.getString(4));
+					userBean.setRole(rs.getString(5));
+					userBean.setMobailNo(rs.getString(7));
+					userBean.setGender(rs.getString(8));
+					userBean.setLanguage(rs.getString(9));
+					userBean.setEmail(rs.getString(10));
+					userBean.setPassword(rs.getString(11));
+					userBean.setProfile((Part) rs.getBlob(12));
+				}
+			} catch (Exception e) {
+				log.info(e);
+			}
+		} else {
+			log.error("Connection is Null");
+		}
+
+		return userBean;
 	}
 
 }

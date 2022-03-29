@@ -86,7 +86,7 @@ public class Registration extends HttpServlet {
 		addressBean.setPinCode(pincode);
 		addressBean.setAddress(address);
 		int addressStatus = registrationDao.addEmployeeAddress(conn, addressBean);
-		
+	
 		if(status>0)
 		{
 			out.print("Successfully Added...");
