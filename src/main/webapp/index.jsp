@@ -81,7 +81,7 @@
 											<!-- <input type="text" class="form-control form-control-lg"
 												id="birthdayDate" name="date" /> -->
 											<!-- 				<input type="date" id="birthday" class="form-control name="date"> -->
-											<input type="text" id="datepicker" class="form-control"
+											<input type="text" name="date" id="datepicker" class="form-control"
 												autocomplete="off">
 										</div>
 

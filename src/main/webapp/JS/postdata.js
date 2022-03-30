@@ -17,7 +17,7 @@ $(document).ready(function() {
 
             success: function(response) {
                 $("#form").show();
-            	console.log(response.trim());
+                console.log(response.trim());
 
                 if (response.trim() === "Successfully Added...") {
                     $("#massage").html("Successfully Added...").css("color", "green");

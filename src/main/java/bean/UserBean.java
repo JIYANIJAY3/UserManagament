@@ -14,7 +14,11 @@ public class UserBean {
 	private String Gender;
 	private String answer;
 	private String language;
-
+	private String Hobby;
+	private String Email;
+	private String Password;
+	private Part profile;
+	
 	public int getUserId() {
 		return UserId;
 	}
@@ -38,12 +42,6 @@ public class UserBean {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
-	private String Hobby;
-	private String Email;
-	private String Password;
-	private Part profile;
-	
 	
 	public Part getProfile() {
 		return profile;

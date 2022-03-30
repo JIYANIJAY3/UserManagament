@@ -14,6 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import bean.UserAddressBean;
 import bean.UserBean;
@@ -22,6 +26,8 @@ import dao.RegistrationDao;
 
 @MultipartConfig
 public class Registration extends HttpServlet {
+	
+	static Logger log = Logger.getLogger(Registration.class.getName());
 	private static final long serialVersionUID = 1L;
 
 	Connection conn = null;
@@ -78,15 +84,23 @@ public class Registration extends HttpServlet {
 		int getUserId = registrationDao.getEmployeeId(conn, email);
 		System.out.println(getUserId);
 		
-		UserAddressBean addressBean = new UserAddressBean();
-		addressBean.setUserId(getUserId);
-		addressBean.setCountry(country);
-		addressBean.setState(state);
-		addressBean.setCity(city);
-		addressBean.setPinCode(pincode);
-		addressBean.setAddress(address);
-		int addressStatus = registrationDao.addEmployeeAddress(conn, addressBean);
-	
+
+		List<UserAddressBean> addressList = new ArrayList<UserAddressBean>();	
+		for(int i=0;i<country.length;i++)
+		{
+			UserAddressBean addressBean = new UserAddressBean();
+			addressBean.setUserId(getUserId);
+			addressBean.setCountry(country[i]);
+			addressBean.setCity(city[i]);
+			addressBean.setPinCode(pincode[i]);
+			addressBean.setState(state[i]);
+			addressBean.setAddress(address[i]);
+			addressList.add(addressBean);
+		}
+
+		int addressStatus = registrationDao.addEmployeeAddress(conn, addressList);
+
+		System.out.println(addressStatus);
 		if(status>0)
 		{
 			out.print("Successfully Added...");

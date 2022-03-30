@@ -5,9 +5,11 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-
 import bean.UserAddressBean;
 import bean.UserBean;
 import jakarta.servlet.http.Part;
@@ -18,7 +20,7 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 	@Override
 	public int addEmployee(Connection conn, UserBean userBean) {
-
+		BasicConfigurator.configure();
 		int result = 0;
 		if (conn != null) {
 			PreparedStatement ps = null;
@@ -71,7 +73,7 @@ public class RegistrationDao implements RegistrationDaoInterface {
 	}
 
 	@Override
-	public int addEmployeeAddress(Connection conn, UserAddressBean addressBean) {
+	public int addEmployeeAddress(Connection conn, List<UserAddressBean> addressList) {
 
 		PreparedStatement ps = null;
 
@@ -80,13 +82,14 @@ public class RegistrationDao implements RegistrationDaoInterface {
 				String setAddress = "INSERT INTO address(AddressId, UserId, Country, Address, PinCode, City, State) "
 						+ "VALUES (NULL,?,?,?,?,?,?)";
 				ps = conn.prepareStatement(setAddress);
-				for (int i = 0; i < addressBean.getCountry().length; i++) {
+				for (int i = 0; i < addressList.size(); i++) {
+					UserAddressBean addressBean = addressList.get(i);
 					ps.setInt(1, addressBean.getUserId());
-					ps.setString(2, addressBean.getCountry()[i]);
-					ps.setString(3, addressBean.getAddress()[i]);
-					ps.setString(4, addressBean.getPinCode()[i]);
-					ps.setString(5, addressBean.getCity()[i]);
-					ps.setString(6, addressBean.getState()[i]);
+					ps.setString(2, addressBean.getCountry());
+					ps.setString(3, addressBean.getAddress());
+					ps.setString(4, addressBean.getPinCode());
+					ps.setString(5, addressBean.getState());
+					ps.setString(6, addressBean.getState());
 					ps.addBatch();
 				}
 				ps.executeBatch();
@@ -181,5 +184,74 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 		return userBean;
 	}
+
+	@Override
+	public List<UserBean> getAllUser(Connection conn) {
+		
+		List<UserBean> list = new ArrayList<UserBean>();
+		if(conn!=null)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM user";
+				ps = conn.prepareStatement(sql);
+				ps.executeQuery();
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					UserBean userBean = new UserBean();
+					userBean.setUserId(rs.getInt(1));
+					userBean.setFiratName(rs.getString(2));
+					userBean.setLastName(rs.getString(3));
+					userBean.setDob(rs.getString(4));
+					userBean.setMobailNo(rs.getString(7));
+					userBean.setGender(rs.getString(8));
+					userBean.setLanguage(rs.getString(9));
+					userBean.setEmail(rs.getString(10));
+					list.add(userBean);
+				}
+				
+			} catch (Exception e) {
+				log.info(e);
+			}
+		}
+		else
+		{
+			log.info("Connection Is Null");
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int deleteUserById(Connection conn, int UserId) {
+		BasicConfigurator.configure();
+		
+		
+		if(conn!=null)
+		{
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+			
+			try {
+				String sql = "DELETE FROM user WHERE UserId=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, UserId);
+				ps.executeUpdate();
+				System.out.println("done");
+				return 1;
+			} catch (Exception e) {
+				log.info(e);
+			}
+		}
+		else {
+			log.info("In UserDao DeleteUserById Method Connection is null");
+		}
+		
+		return 0;
+	}
+
 
 }

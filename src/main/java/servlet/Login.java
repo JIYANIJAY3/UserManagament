@@ -11,8 +11,11 @@ import util.ServletUtilClass;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.List;
 
+import bean.UserAddressBean;
 import bean.UserBean;
+import dao.AddressDao;
 import dao.DataBaseConnection;
 import dao.LoginDao;
 import dao.LoginDaoInterface;
@@ -30,33 +33,32 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
+
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
 		LoginDao loginDao = new LoginDao();
 		RegistrationDao registrationDao = new RegistrationDao();
-		
+		AddressDao addressDao = new AddressDao();
+
 		String Role = loginDao.loginUser(conn, email, password);
-		
+
 		System.out.println(Role);
 		try {
-			if(Role.equals("User"))
-			{
+			if (Role.equals("User")) {
 				HttpSession session = request.getSession();
 				UserBean bean = registrationDao.getEmployeeByEmail(conn, email);
 				session.setAttribute("User", bean);
+				int UserId = bean.getUserId();
+				List<UserAddressBean> list = addressDao.getUserAddress(conn, UserId);
+				session.setAttribute("UserAddress", list);
 				response.sendRedirect("UserHome.jsp");
-			}
-			else if(Role.equals("Admin"))
-			{
+			} else if (Role.equals("Admin")) {
 				response.sendRedirect("AdminHome.jsp");
-			}
-			else
-			{
+			} else {
 				ServletUtilClass.setErrorMessage("Invalid UserName And PassWord", request);
 				ServletUtilClass.include("/login.jsp", request, response);
 			}
@@ -67,7 +69,6 @@ public class Login extends HttpServlet {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		super.destroy();
 	}
 }
