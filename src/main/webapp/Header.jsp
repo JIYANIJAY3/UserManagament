@@ -27,10 +27,10 @@
                             <a class="nav-link" href="UserProfile.jsp" id="profile-link">Profile <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Edit Profile</a>
+                            <a class="nav-link" href="index.jsp">Edit Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">LogOut</a>
+                            <a class="nav-link" href="LogOut">LogOut</a>
                         </li>
 
                     </ul>

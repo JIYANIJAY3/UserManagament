@@ -81,7 +81,7 @@
 											<!-- <input type="text" class="form-control form-control-lg"
 												id="birthdayDate" name="date" /> -->
 											<!-- 				<input type="date" id="birthday" class="form-control name="date"> -->
-											<input type="text" id="datepicker" class="form-control"
+											<input type="text" name="date" id="datepicker" class="form-control"
 												autocomplete="off">
 										</div>
 
@@ -184,6 +184,7 @@
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
+												name="profile"
 												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->

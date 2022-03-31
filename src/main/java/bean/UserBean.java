@@ -18,6 +18,7 @@ public class UserBean {
 	private String Email;
 	private String Password;
 	private Part profile;
+	private String base64Image;
 	
 	public int getUserId() {
 		return UserId;
@@ -129,6 +130,14 @@ public class UserBean {
 
 	public void setPassword(String password) {
 		Password = password;
+	}
+
+	public String getBase64Image() {
+		return base64Image;
+	}
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
 
 }

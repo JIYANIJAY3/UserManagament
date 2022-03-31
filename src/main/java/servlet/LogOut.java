@@ -16,9 +16,10 @@ public class LogOut extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-
+		
 		HttpSession session = request.getSession(false);
+		session.removeAttribute("User");
+		session.removeAttribute("Admin");
 		session.invalidate();
 		response.sendRedirect("login.jsp");
 	}

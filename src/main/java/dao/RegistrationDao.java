@@ -1,11 +1,13 @@
 package dao;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
@@ -163,6 +165,22 @@ public class RegistrationDao implements RegistrationDaoInterface {
 				ps.setString(1, email);
 				rs = ps.executeQuery();
 				if (rs.next()) {
+					Blob blob = rs.getBlob(12);
+
+					InputStream inputStream = blob.getBinaryStream();
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					byte[] buffer = new byte[4096];
+					int bytesRead = -1;
+
+					while ((bytesRead = inputStream.read(buffer)) != -1) {
+						outputStream.write(buffer, 0, bytesRead);
+					}
+
+					byte[] imageBytes = outputStream.toByteArray();
+					String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+					inputStream.close();
+					outputStream.close();
 					userBean.setUserId(rs.getInt(1));
 					userBean.setFiratName(rs.getString(2));
 					userBean.setLastName(rs.getString(3));
@@ -173,7 +191,7 @@ public class RegistrationDao implements RegistrationDaoInterface {
 					userBean.setLanguage(rs.getString(9));
 					userBean.setEmail(rs.getString(10));
 					userBean.setPassword(rs.getString(11));
-					userBean.setProfile((Part) rs.getBlob(12));
+					userBean.setBase64Image(base64Image);
 				}
 			} catch (Exception e) {
 				log.info(e);
@@ -187,16 +205,16 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 	@Override
 	public List<UserBean> getAllUser(Connection conn) {
-		
+
 		List<UserBean> list = new ArrayList<UserBean>();
-		if(conn!=null)
-		{
+		if (conn != null) {
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			
+
 			try {
-				String sql = "SELECT * FROM user";
+				String sql = "SELECT * FROM user where Role=?";
 				ps = conn.prepareStatement(sql);
+				ps.setString(1, "User");
 				ps.executeQuery();
 				rs = ps.executeQuery();
 				while (rs.next()) {
@@ -211,30 +229,23 @@ public class RegistrationDao implements RegistrationDaoInterface {
 					userBean.setEmail(rs.getString(10));
 					list.add(userBean);
 				}
-				
+
 			} catch (Exception e) {
 				log.info(e);
 			}
-		}
-		else
-		{
+		} else {
 			log.info("Connection Is Null");
 		}
-		
+
 		return list;
 	}
 
 	@Override
 	public int deleteUserById(Connection conn, int UserId) {
 		BasicConfigurator.configure();
-		
-		
-		if(conn!=null)
-		{
+		if (conn != null) {
 			PreparedStatement ps = null;
-			ResultSet rs = null;
-			
-			
+			;
 			try {
 				String sql = "DELETE FROM user WHERE UserId=?";
 				ps = conn.prepareStatement(sql);
@@ -245,13 +256,11 @@ public class RegistrationDao implements RegistrationDaoInterface {
 			} catch (Exception e) {
 				log.info(e);
 			}
-		}
-		else {
+		} else {
 			log.info("In UserDao DeleteUserById Method Connection is null");
 		}
-		
+
 		return 0;
 	}
-
 
 }

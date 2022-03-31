@@ -274,6 +274,7 @@
 										value="Submit" />
 								</div>
 							</form>
+							<a href="login.jsp">Login</a>
 						</div>
 					</div>
 				</div>

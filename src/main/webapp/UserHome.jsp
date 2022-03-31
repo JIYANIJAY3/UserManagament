@@ -24,12 +24,24 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 </head>
+<%
+response.setHeader("Pragma", "no-cache");
 
+response.setHeader("Cache-Control", "no-store");
+
+response.setHeader("Expires", "0");
+
+response.setDateHeader("Expires", -1);
+%>
 <body>
 
 	<c:import url="Header.jsp"></c:import>
 	<jsp:useBean id="User" scope="session" class="bean.UserBean" />
-	<input type="hidden" id="userid" name="UserId" value="${User.getUserId() }">
+	<c:if test="${User.getUserId()==0 }">
+		<c:redirect url="login.jsp"></c:redirect>
+	</c:if>
+	<input type="hidden" id="userid" name="UserId"
+		value="${User.getUserId() }">
 	<script src="JS/getdata.js"></script>
 </body>
 

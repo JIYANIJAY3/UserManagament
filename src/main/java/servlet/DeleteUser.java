@@ -29,8 +29,7 @@ public class DeleteUser extends HttpServlet {
 		BasicConfigurator.configure();
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		log.info("hello");
+		
 		String UserId = request.getParameter("UserId");
 		RegistrationDao registrationDao = new RegistrationDao();
 		int status = registrationDao.deleteUserById(conn, Integer.parseInt(UserId));
@@ -40,7 +39,7 @@ public class DeleteUser extends HttpServlet {
 		} else {
 			out.print("not delete");
 		}
-
+		log.info("User Deleted");
 	}
 
 	@Override

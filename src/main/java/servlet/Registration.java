@@ -40,8 +40,6 @@ public class Registration extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		InputStream inputStream = null; // input stream of the upload file
 		
 		String firstname = request.getParameter("fname");
 		String lastname = request.getParameter("lname");
