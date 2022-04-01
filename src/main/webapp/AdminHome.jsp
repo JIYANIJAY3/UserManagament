@@ -24,11 +24,8 @@
 
 <%
 response.setHeader("Pragma", "no-cache");
-
 response.setHeader("Cache-Control", "no-store");
-
 response.setHeader("Expires", "0");
-
 response.setDateHeader("Expires", -1);
 %>
 </head>
@@ -42,9 +39,17 @@ response.setDateHeader("Expires", -1);
 					<div class="col-md-12">
 						<h1>Welcom Admin</h1>
 						<br> <br>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
 						<div class="button-section">
-							<button>Show Profile</button>
-							<a href="LogOut">LogOut</a>
+							<a class="btn btn-primary" href="AdminProfile.jsp" role="button">Show
+								Profile</a> <a class="btn btn-danger folat-left" href="LogOut"
+								role="button">LogOut</a> <a class="btn btn-primary  float-end"
+								href="index.jsp" role="button">AddUser +</a>
 						</div>
 					</div>
 				</div>

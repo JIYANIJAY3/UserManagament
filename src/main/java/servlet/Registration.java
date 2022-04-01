@@ -6,14 +6,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import service.UserImpl;
+import util.ServletUtilClass;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,6 @@ import org.apache.log4j.Logger;
 import bean.UserAddressBean;
 import bean.UserBean;
 import dao.DataBaseConnection;
-import dao.RegistrationDao;
 
 @MultipartConfig
 public class Registration extends HttpServlet {
@@ -76,13 +73,11 @@ public class Registration extends HttpServlet {
 		String[] pincode = request.getParameterValues("pincode");
 		String[] address = request.getParameterValues("address");
 		
-		RegistrationDao registrationDao = new RegistrationDao();
-		int status = registrationDao.addEmployee(conn,userBean);
 		
-		int getUserId = registrationDao.getEmployeeId(conn, email);
-		System.out.println(getUserId);
+		UserImpl impl = new UserImpl();
+		int status = impl.getUserStatus(conn,userBean);
+		int getUserId = impl.getUserId(conn, email);
 		
-
 		List<UserAddressBean> addressList = new ArrayList<UserAddressBean>();	
 		for(int i=0;i<country.length;i++)
 		{
@@ -96,9 +91,9 @@ public class Registration extends HttpServlet {
 			addressList.add(addressBean);
 		}
 
-		int addressStatus = registrationDao.addEmployeeAddress(conn, addressList);
+		int addressStatus =impl.getUserAddressStatus(conn, addressList);
 
-		System.out.println(addressStatus);
+		log.info("here");
 		if(status>0)
 		{
 			out.print("Successfully Added...");
@@ -115,5 +110,4 @@ public class Registration extends HttpServlet {
 		// TODO Auto-generated method stub
 		super.destroy();
 	}
-
 }

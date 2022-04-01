@@ -9,16 +9,23 @@ import service.UserImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import dao.DataBaseConnection;
-import dao.RegistrationDao;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
-public class DeleteUser extends HttpServlet {
+import bean.UserAddressBean;
+import dao.DataBaseConnection;
+
+public class GetAllUserAddress extends HttpServlet {
+
+	static Logger log = Logger.getLogger(GetAllUserAddress.class.getName());
+
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(DeleteUser.class.getName());
 	Connection conn = null;
 
 	@Override
@@ -26,22 +33,18 @@ public class DeleteUser extends HttpServlet {
 		conn = DataBaseConnection.getConnection();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BasicConfigurator.configure();
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
-		String UserId = request.getParameter("UserId");
-		UserImpl impl = new UserImpl();
-		int status = impl.deleteUserById(conn, Integer.parseInt(UserId));
 
-		if (status > 0) {
-			out.print("delete");
-		} else {
-			out.print("not delete");
-		}
-		log.info("User Deleted");
+		String UserId = "27";
+		UserImpl impl = new UserImpl();
+		List<UserAddressBean> list = impl.getUserAddress(conn, Integer.parseInt(UserId));
+		log.info(list.size());
+		Gson gson = new Gson();
+		out.print(gson.toJson(list));
 	}
 
 	@Override

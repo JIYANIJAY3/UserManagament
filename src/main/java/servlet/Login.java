@@ -37,8 +37,7 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		BasicConfigurator.configure();
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
@@ -47,8 +46,8 @@ public class Login extends HttpServlet {
 		AddressDao addressDao = new AddressDao();
 
 		String Role = loginDao.loginUser(conn, email, password);
-
-		System.out.println(Role);
+		
+		log.info(Role);
 		try {
 			if (Role.equals("User")) {
 				HttpSession session = request.getSession();
@@ -58,6 +57,7 @@ public class Login extends HttpServlet {
 				List<UserAddressBean> list = addressDao.getUserAddress(conn, UserId);
 				session.setAttribute("UserAddress", list);
 				response.sendRedirect("UserHome.jsp");
+				
 			} else if (Role.equals("Admin")) {
 				HttpSession session = request.getSession();
 				UserBean bean = registrationDao.getEmployeeByEmail(conn, email);

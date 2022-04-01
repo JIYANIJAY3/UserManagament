@@ -14,6 +14,7 @@ import util.ServletUtilClass;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 public class ValidationFilter implements Filter {
@@ -29,6 +30,7 @@ public class ValidationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
+		BasicConfigurator.configure();
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 
@@ -45,17 +47,28 @@ public class ValidationFilter implements Filter {
 		String mobail = request.getParameter("mobail");
 
 		if (firstname.isEmpty()) {
-			/*
-			 * req.setAttribute("msg", "enter name"); RequestDispatcher rd =
-			 * request.getRequestDispatcher("index.jsp"); rd.include(req, res);
-			 */
+			log.info("fname empty");
+
 			try {
+				ServletUtilClass.setErrorMessage("fname is empty", req);
+				ServletUtilClass.forward("index.jsp", req, res);
+			} catch (IOException | javax.servlet.ServletException | ServletException e) {
+				log.info(e);
+				e.printStackTrace();
+			}
+
+		}
+		else if(lastname.isEmpty()){
+			log.info("lname empty");
+
+			try {
+				ServletUtilClass.setErrorMessage("lname is empty", req);
 				ServletUtilClass.include("index.jsp", req, res);
 			} catch (IOException | javax.servlet.ServletException | ServletException e) {
 				log.info(e);
 				e.printStackTrace();
 			}
-		} else {
+		}else {
 			log.info("Do Filter Call");
 			chain.doFilter(request, response);
 		}

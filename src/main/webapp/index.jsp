@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="util.ServletUtilClass"%>
 <html lang="en">
 
 <head>
@@ -26,7 +27,6 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="CSS/index.css">
 <link rel="stylesheet" href="CSS/address.css">
-
 </head>
 
 <body>
@@ -47,6 +47,7 @@
 							</div> -->
 							<div class="container text-center">
 								<h5 id="massage"></h5>
+								<%=ServletUtilClass.getErrorMessage(request)%>
 							</div>
 							<form action="Registration" method="post" id="form"
 								enctype="multipart/form-data">
@@ -57,7 +58,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="firstName" name="fname">First
 												Name</label> <input type="text" id="firstName"
-												class="form-control form-control-lg" name="fname" /> <label
+												class="form-control form-control-lg" name="fname"
+												value=<c:out value="${User.getFiratName() }" />> <label
 												for="fname" class="error"></label>
 										</div>
 									</div>
@@ -66,7 +68,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="lastName">Last Name</label> <input
 												type="text" id="lastName"
-												class="form-control form-control-lg" name="lname" />
+												class="form-control form-control-lg" name="lname"
+												value=<c:out value="${User.getLastName() }" />>
 
 										</div>
 
@@ -81,8 +84,9 @@
 											<!-- <input type="text" class="form-control form-control-lg"
 												id="birthdayDate" name="date" /> -->
 											<!-- 				<input type="date" id="birthday" class="form-control name="date"> -->
-											<input type="text" name="date" id="datepicker" class="form-control"
-												autocomplete="off">
+											<input type="text" name="date" id="datepicker"
+												class="form-control" autocomplete="off"
+												value=<c:out value="${User.getDob() }" />>
 										</div>
 
 									</div>
@@ -111,7 +115,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="emailAddress">Email</label> <input
 												type="email" id="emailAddress"
-												class="form-control form-control-lg" name="email" />
+												class="form-control form-control-lg" name="email"
+												value=<c:out value="${User.getEmail() }" />>
 										</div>
 										<p id="isEmailPresent"></p>
 									</div>
@@ -120,7 +125,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="phoneNumber">password</label>
 											<input type="password" id="password"
-												class="form-control form-control-lg" name="password" />
+												class="form-control form-control-lg" name="password"
+												value=<c:out value="${User.getPassword() }" />>
 										</div>
 
 									</div>
@@ -131,7 +137,7 @@
 										<div class="form-outline">
 											<label class="form-label" for="mobail">MobailNo</label> <input
 												type="tel" id="mobail" class="form-control form-control-lg"
-												name="mobail" />
+												name="mobail" value=<c:out value="${User.getMobailNo() }" />>
 										</div>
 
 									</div>
@@ -172,8 +178,9 @@
 									<div class="col-md-6 mb-4 pb-2">
 										<div class="form-outline">
 											<label class="form-label select-label">answer</label> <input
-												type="text" id="answer" class="form-control form-control-lg"
-												name="answer" />
+												type="text" name="answer" id="answer"
+												class="form-control form-control-lg"
+												value=<c:out value="${User.getAnswer() }" />>
 										</div>
 
 									</div>
@@ -204,8 +211,8 @@
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_one_0">Country
-															</label> <input type="text" id="address_line_one_0"
-																class="form-control" name="country" maxlength="255">
+															</label> <input type="text" id="country_0" class="form-control"
+																name="country" maxlength="255">
 															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
@@ -270,7 +277,7 @@
 								</div>
 
 								<div class="mt-4 pt-2">
-									<input class="btn btn-primary btn-lg" type="submit"
+									<input class="btn btn-primary btn-lg" id="submit-btn" type="submit"
 										value="Submit" />
 								</div>
 							</form>
@@ -311,6 +318,7 @@
 	<script src="JS/postdata.js"></script>
 	<script src="JS/imagePreview.js"></script>
 	<script src="JS/getdata.js"></script>
+	<script src="JS/editProfile.js"></script>
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({
@@ -319,7 +327,6 @@
 			});
 		});
 	</script>
-
 	<script>
 		$('a#add-more').cloneData({
 			mainContainerId : 'main-container', // Main container Should be ID

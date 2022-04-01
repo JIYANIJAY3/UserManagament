@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.UserImpl;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -28,8 +30,8 @@ public class CheckEmailIsPresent extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String email = request.getParameter("email");
-		RegistrationDao registrationDao = new RegistrationDao();
-		boolean status = registrationDao.getEmailIsPresent(conn, email);
+		UserImpl impl = new UserImpl();
+		boolean status = impl.getEmailIsPresent(conn, email);
 
 		if(status)
 		{

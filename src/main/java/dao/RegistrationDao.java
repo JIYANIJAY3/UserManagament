@@ -263,4 +263,5 @@ public class RegistrationDao implements RegistrationDaoInterface {
 		return 0;
 	}
 
+
 }

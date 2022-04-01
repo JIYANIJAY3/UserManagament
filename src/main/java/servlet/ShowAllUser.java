@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.UserImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,8 +44,9 @@ public class ShowAllUser extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		RegistrationDao registrationDao = new RegistrationDao();
-		List<UserBean> list = registrationDao.getAllUser(conn);
+		UserImpl impl = new UserImpl();
+		
+		List<UserBean> list = impl.getAllUser(conn);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonObject json = new JsonObject();

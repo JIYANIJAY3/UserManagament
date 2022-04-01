@@ -33,15 +33,17 @@ response.setHeader("Expires", "0");
 
 response.setDateHeader("Expires", -1);
 %>
+
 <body>
 
 	<c:import url="Header.jsp"></c:import>
-	<jsp:useBean id="User" scope="session" class="bean.UserBean" />
-	<c:if test="${User.getUserId()==0 }">
-		<c:redirect url="login.jsp"></c:redirect>
-	</c:if>
-	<input type="hidden" id="userid" name="UserId"
-		value="${User.getUserId() }">
+	<!-- <jsp:useBean id="User" scope="session" class="bean.UserBean" />
+                                <c:if test="${User.getUserId()==0 }">
+                                    <c:redirect url="login.jsp"></c:redirect>
+                                </c:if> -->
+	<!-- <input type="hidden" id="userid" name="UserId"
+		value="${User.getUserId() }"> -->
+	<div class="result"></div>
 	<script src="JS/getdata.js"></script>
 </body>
 
