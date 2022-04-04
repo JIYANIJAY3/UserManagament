@@ -47,9 +47,9 @@ response.setDateHeader("Expires", -1);
 					<div class="col-md-12">
 						<div class="button-section">
 							<a class="btn btn-primary" href="AdminProfile.jsp" role="button">Show
-								Profile</a> <a class="btn btn-danger folat-left" href="LogOut"
-								role="button">LogOut</a> <a class="btn btn-primary  float-end"
-								href="index.jsp" role="button">AddUser +</a>
+								Profile</a> <a class="btn btn-primary" href="index.jsp"
+								role="button">AddUser +</a><a class="btn btn-danger float-end"
+								href="LogOut" role="button">LogOut</a>
 						</div>
 					</div>
 				</div>

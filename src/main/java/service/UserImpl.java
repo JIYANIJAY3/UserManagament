@@ -69,4 +69,9 @@ public class UserImpl implements UserInterface {
 		return addressDao.updateUserAddress(conn, addressList);
 	}
 
+	@Override
+	public int addUserAddress(Connection conn, List<UserAddressBean> addressList) {
+		return addressDao.addUserAddress(conn, addressList);
+	}
+
 }

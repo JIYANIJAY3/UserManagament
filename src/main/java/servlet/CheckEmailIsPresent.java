@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.UserImpl;
+import service.UserInterface;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,6 +31,7 @@ public class CheckEmailIsPresent extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String email = request.getParameter("email");
+		UserInterface userInterface = new UserImpl();
 		UserImpl impl = new UserImpl();
 		boolean status = impl.getEmailIsPresent(conn, email);
 

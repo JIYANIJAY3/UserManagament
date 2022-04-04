@@ -171,7 +171,7 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 					inputStream.close();
 					outputStream.close();
-					
+
 					userBean.setUserId(rs.getInt(1));
 					userBean.setFiratName(rs.getString(2));
 					userBean.setLastName(rs.getString(3));

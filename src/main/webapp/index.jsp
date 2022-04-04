@@ -170,7 +170,7 @@ ul li {
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
 													id="inlineCheckbox3" name="language" value="C++"
-													${User.getLanguage().toString().trim().contains('c++') ? 'checked' : ''}>
+													${User.getLanguage().toString().trim().contains('C++') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">C++</label>
 											</div>
 										</div>
@@ -205,11 +205,13 @@ ul li {
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
-												name="profile" value="${User.getBase64Image() }"
+												name="profile"
 												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->
-										<img id="image-preview" width="100" height="100" />
+										<img id="image-preview"
+											src="data:image/jpg;base64,${User.getBase64Image()}"
+											width="100" height="100" />
 									</div>
 									<!-- <div class="col-md-12 text-center">
 										<ul>
@@ -288,9 +290,7 @@ ul li {
 															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
-
 												</div>
-
 												<div class="row">
 													<div class="col-sm-12">
 														<div>
@@ -370,6 +370,8 @@ ul li {
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({
+				changeMonth : true,
+				changeYear : true,
 				maxDate : new Date(),
 				dateFormat : "yy-mm-dd"
 			});

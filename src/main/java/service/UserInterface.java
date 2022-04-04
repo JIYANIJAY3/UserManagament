@@ -18,4 +18,5 @@ public interface UserInterface {
 	public int forgetPassword(Connection conn,String email,String answer);
 	public int updatePassword(Connection conn,int UserId,String Password);
 	public int updateUserAddress(Connection conn,List<UserAddressBean> addressList);
+	public int addUserAddress(Connection conn,List<UserAddressBean> addressList);
 }

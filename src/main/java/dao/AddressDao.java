@@ -50,9 +50,10 @@ public class AddressDao implements AddressDaoInterface {
 			try {
 				String setAddress = "UPDATE address SET Country=?, Address=?, PinCode=?, City=?, State=? where AddressId=?";
 				ps = conn.prepareStatement(setAddress);
+				
 				for (int i = 0; i < addressList.size(); i++) {
 					UserAddressBean addressBean = addressList.get(i);
-					log.info("AddressID "+ addressBean.getAddressId());
+					log.info("AddressID " + addressBean.getAddressId());
 					ps.setString(1, addressBean.getCountry());
 					ps.setString(2, addressBean.getAddress());
 					ps.setString(3, addressBean.getPinCode());
@@ -62,6 +63,39 @@ public class AddressDao implements AddressDaoInterface {
 					ps.addBatch();
 				}
 				ps.executeBatch();
+				return 1;
+			} catch (Exception e) {
+				log.info(e);
+			}
+		} else {
+			log.error("Connection Is Null");
+		}
+
+		return 0;
+	}
+
+	@Override
+	public int addUserAddress(Connection conn, List<UserAddressBean> addressList) {
+		PreparedStatement ps = null;
+
+		if (conn != null) {
+			try {
+				String setAddress = "INSERT INTO address(AddressId, UserId, Country, Address, PinCode, City, State) "
+						+ "VALUES (NULL,?,?,?,?,?,?)";
+				ps = conn.prepareStatement(setAddress);
+				log.info("here");
+				for (int i = 0; i < addressList.size(); i++) {
+					UserAddressBean addressBean = addressList.get(i);
+					ps.setInt(1, addressBean.getUserId());
+					ps.setString(2, addressBean.getCountry());
+					ps.setString(3, addressBean.getAddress());
+					ps.setString(4, addressBean.getPinCode());
+					ps.setString(5, addressBean.getState());
+					ps.setString(6, addressBean.getState());
+					ps.addBatch();
+				}
+				ps.executeBatch();
+				log.info("done");
 				return 1;
 			} catch (Exception e) {
 				log.info(e);

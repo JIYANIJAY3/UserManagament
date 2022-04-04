@@ -24,21 +24,22 @@ import dao.DataBaseConnection;
 
 @MultipartConfig
 public class Registration extends HttpServlet {
-	
+
 	static Logger log = Logger.getLogger(Registration.class.getName());
 	private static final long serialVersionUID = 1L;
 
 	Connection conn = null;
+
 	@Override
 	public void init() throws ServletException {
 		conn = DataBaseConnection.getConnection();
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
+
 		String firstname = request.getParameter("fname");
 		String lastname = request.getParameter("lname");
 		String date = request.getParameter("date");
@@ -48,15 +49,22 @@ public class Registration extends HttpServlet {
 		String answer = request.getParameter("answer");
 		String mobail = request.getParameter("mobail");
 		Part filePart = request.getPart("profile");
-		 
+		
+		List<Part> l = new ArrayList<Part>();
+		
+		for (Part part : request.getParts()) {
+			l.add(part);
+		}
+		log.info(l.get(0));
+		log.info(l.size());
 		
 		String[] language = request.getParameterValues("language");
 		String storelanguage = " ";
-		for(int i=0;i<language.length;i++)
-		{
-			storelanguage += language[i]+" ";
+
+		for (int i = 0; i < language.length; i++) {
+			storelanguage += language[i] + " ";
 		}
-		
+
 		UserBean userBean = new UserBean();
 		userBean.setFiratName(firstname);
 		userBean.setLastName(lastname);
@@ -68,21 +76,20 @@ public class Registration extends HttpServlet {
 		userBean.setMobailNo(mobail);
 		userBean.setProfile(filePart);
 		userBean.setLanguage(storelanguage);
-		
+
 		String[] country = request.getParameterValues("country");
 		String[] state = request.getParameterValues("state");
 		String[] city = request.getParameterValues("city");
 		String[] pincode = request.getParameterValues("pincode");
 		String[] address = request.getParameterValues("address");
-		
+
 		UserInterface userInterface = new UserImpl();
 
-		int status = userInterface.getUserStatus(conn,userBean);
+		int status = userInterface.getUserStatus(conn, userBean);
 		int getUserId = userInterface.getUserId(conn, email);
-		
-		List<UserAddressBean> addressList = new ArrayList<UserAddressBean>();	
-		for(int i=0;i<country.length;i++)
-		{
+
+		List<UserAddressBean> addressList = new ArrayList<UserAddressBean>();
+		for (int i = 0; i < country.length; i++) {
 			UserAddressBean addressBean = new UserAddressBean();
 			addressBean.setUserId(getUserId);
 			addressBean.setCountry(country[i]);
@@ -93,18 +100,15 @@ public class Registration extends HttpServlet {
 			addressList.add(addressBean);
 		}
 
-		int addressStatus =userInterface.getUserAddressStatus(conn, addressList);
+		int addressStatus = userInterface.getUserAddressStatus(conn, addressList);
 
 		log.info("here");
-		if(status>0)
-		{
+		if (status > 0) {
 			out.print("Successfully Added...");
-		}
-		else
-		{
+		} else {
 			out.print("Somthing went wrong");
 		}
-		
+
 	}
 
 	@Override

@@ -63,7 +63,8 @@ response.setDateHeader("Expires", -1);
 							</div>
 							<div class="d-flex justify-content-between">
 								<div>
-									<a href="ForgetPassword.jsp" class="forgot">Forgot Password?</a>
+									<a href="ForgetPassword.jsp" class="forgot">Forgot
+										Password?</a>
 								</div>
 							</div>
 							<div class="mt-2">
