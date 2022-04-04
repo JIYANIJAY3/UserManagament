@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import service.UserImpl;
+import service.UserInterface;
 import util.ServletUtilClass;
 
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class Registration extends HttpServlet {
 		String answer = request.getParameter("answer");
 		String mobail = request.getParameter("mobail");
 		Part filePart = request.getPart("profile");
+		 
 		
 		String[] language = request.getParameterValues("language");
 		String storelanguage = " ";
@@ -73,10 +75,10 @@ public class Registration extends HttpServlet {
 		String[] pincode = request.getParameterValues("pincode");
 		String[] address = request.getParameterValues("address");
 		
-		
-		UserImpl impl = new UserImpl();
-		int status = impl.getUserStatus(conn,userBean);
-		int getUserId = impl.getUserId(conn, email);
+		UserInterface userInterface = new UserImpl();
+
+		int status = userInterface.getUserStatus(conn,userBean);
+		int getUserId = userInterface.getUserId(conn, email);
 		
 		List<UserAddressBean> addressList = new ArrayList<UserAddressBean>();	
 		for(int i=0;i<country.length;i++)
@@ -91,7 +93,7 @@ public class Registration extends HttpServlet {
 			addressList.add(addressBean);
 		}
 
-		int addressStatus =impl.getUserAddressStatus(conn, addressList);
+		int addressStatus =userInterface.getUserAddressStatus(conn, addressList);
 
 		log.info("here");
 		if(status>0)

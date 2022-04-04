@@ -69,6 +69,7 @@ response.setDateHeader("Expires", -1);
 										<th>Gender</th>
 										<th>language</th>
 										<th>Email</th>
+										<th>Edit</th>
 										<th>Delete</th>
 									</tr>
 								</thead>

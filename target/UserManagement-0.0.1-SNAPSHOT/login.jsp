@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" errorPage="errorPage.jsp"%>
 <%@ page import="util.ServletUtilClass"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,6 @@ response.setDateHeader("Expires", -1);
 
 <body>
 	<div id="login">
-
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
@@ -52,7 +51,7 @@ response.setDateHeader("Expires", -1);
 								<img src="https://i.imgur.com/uNiv4bD.png" width="160">
 							</div>
 							<div class="mt-4 text-center">
-								<span>Login with your admin credentials</span>
+								<span>Login with your credentials</span>
 								<div class="mt-3 inputbox">
 									<input type="text" class="form-control" name="email"
 										placeholder="Email"> <i class="fa fa-user"></i>
@@ -81,7 +80,6 @@ response.setDateHeader("Expires", -1);
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
 

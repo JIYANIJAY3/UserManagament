@@ -5,13 +5,22 @@ import java.util.List;
 public class UserAddressBean {
 
 	private int UserId;
+	private int addressId;
 	private String country;
 	private String state;
 	private String city;
 	private String pinCode;
 	private String address;
 	private List<UserAddressBean> list;
-	
+
+	public int getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+
 	public List<UserAddressBean> getList() {
 		return list;
 	}

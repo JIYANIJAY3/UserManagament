@@ -39,7 +39,7 @@ public class GetAllUserAddress extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		String UserId = "27";
+		String UserId = request.getParameter("UserId");
 		UserImpl impl = new UserImpl();
 		List<UserAddressBean> list = impl.getUserAddress(conn, Integer.parseInt(UserId));
 		log.info(list.size());

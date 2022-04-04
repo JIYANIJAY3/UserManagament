@@ -22,13 +22,23 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 </head>
+
+
+<%
+response.setHeader("Pragma", "no-cache");
+
+response.setHeader("Cache-Control", "no-store");
+
+response.setHeader("Expires", "0");
+
+response.setDateHeader("Expires", -1);
+%>
 <body>
 
 	<c:import url="Header.jsp"></c:import>
 	<jsp:useBean id="User" scope="session" class="bean.UserBean" />
-
 	<c:choose>
-		<c:when test="${sessionScope.User != null}">
+		<c:when test="${User.getUserId()!=0 }">
 			<section style="background-color: #eee;">
 				<div class="container py-5">
 					<div class="row">
@@ -123,6 +133,19 @@
 										</div>
 									</div>
 									<hr>
+									<div class="row">
+										<div class="col-sm-3">
+											<p class="mb-0">Profile</p>
+										</div>
+										<div class="col-sm-9">
+											<p class="text-muted mb-0">
+												<img src="data:image/jpg;base64,${User.getBase64Image()}"
+													width="240" height="200" />
+											</p>
+										</div>
+									</div>
+									<hr>
+									<a class="btn btn-primary" href="UserHome.jsp" role="button">Back</a>
 								</div>
 							</div>
 						</div>
@@ -131,8 +154,9 @@
 			</section>
 		</c:when>
 		<c:otherwise>
-		 <c:redirect url="login.jsp"/>  
+			<c:redirect url="login.jsp" />
 		</c:otherwise>
 	</c:choose>
+
 </body>
 </html>

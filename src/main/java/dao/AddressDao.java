@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import bean.UserAddressBean;
 
 public class AddressDao implements AddressDaoInterface {
-	
+
 	static Logger log = Logger.getLogger(AddressDao.class.getName());
 
 	public List<UserAddressBean> getUserAddress(Connection con, int UserId) {
@@ -20,7 +20,7 @@ public class AddressDao implements AddressDaoInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String set = "SELECT Country, Address, PinCode, City, State FROM address where UserId=?";
+			String set = "SELECT AddressId,Country, Address, PinCode, City, State FROM address where UserId=?";
 
 			ps = con.prepareStatement(set);
 			ps.setInt(1, UserId);
@@ -28,17 +28,49 @@ public class AddressDao implements AddressDaoInterface {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				UserAddressBean addressBean = new UserAddressBean();
-				addressBean.setCountry(rs.getString(1));
-				addressBean.setAddress(rs.getString(2));
-				addressBean.setPinCode(rs.getString(3));
-				addressBean.setCity(rs.getString(4));
-				addressBean.setState(rs.getString(5));
+				addressBean.setAddressId(rs.getInt(1));
+				addressBean.setCountry(rs.getString(2));
+				addressBean.setAddress(rs.getString(3));
+				addressBean.setPinCode(rs.getString(4));
+				addressBean.setCity(rs.getString(5));
+				addressBean.setState(rs.getString(6));
 				list.add(addressBean);
 			}
 		} catch (Exception e) {
 			log.info(e);
 		}
 		return list;
+	}
+
+	@Override
+	public int updateUserAddress(Connection conn, List<UserAddressBean> addressList) {
+		PreparedStatement ps = null;
+
+		if (conn != null) {
+			try {
+				String setAddress = "UPDATE address SET Country=?, Address=?, PinCode=?, City=?, State=? where AddressId=?";
+				ps = conn.prepareStatement(setAddress);
+				for (int i = 0; i < addressList.size(); i++) {
+					UserAddressBean addressBean = addressList.get(i);
+					log.info("AddressID "+ addressBean.getAddressId());
+					ps.setString(1, addressBean.getCountry());
+					ps.setString(2, addressBean.getAddress());
+					ps.setString(3, addressBean.getPinCode());
+					ps.setString(4, addressBean.getCity());
+					ps.setString(5, addressBean.getState());
+					ps.setInt(6, addressBean.getAddressId());
+					ps.addBatch();
+				}
+				ps.executeBatch();
+				return 1;
+			} catch (Exception e) {
+				log.info(e);
+			}
+		} else {
+			log.error("Connection Is Null");
+		}
+
+		return 0;
 	}
 
 }

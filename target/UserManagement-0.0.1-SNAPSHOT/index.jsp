@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="util.ServletUtilClass"%>
 <html lang="en">
 
 <head>
@@ -19,15 +20,23 @@
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
-
+<link rel="stylesheet" href="multi-image/multiple-image-video(MIV).css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="CSS/index.css">
 <link rel="stylesheet" href="CSS/address.css">
-
 </head>
+<style type="text/css">
+ul li {
+	float: left;
+	list-style: outside none none;
+	padding-left: 10px;
+}
+</style>
 
 <body>
 	<section class="vh-100 gradient-custom">
@@ -38,6 +47,7 @@
 						style="border-radius: 15px;">
 						<div class="card-body p-4 p-md-5">
 							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+							<c:out value="hello ${User.getLanguage().toString() }"></c:out>
 							<!-- 
 							<div class="container text-center">
 								<div class="spinner-border loader" role="status" style="display:non">
@@ -47,17 +57,19 @@
 							</div> -->
 							<div class="container text-center">
 								<h5 id="massage"></h5>
+								<%=ServletUtilClass.getErrorMessage(request)%>
 							</div>
 							<form action="Registration" method="post" id="form"
 								enctype="multipart/form-data">
-
 								<div class="row">
 									<div class="col-md-6 mb-4">
-
+										<input type="hidden" id="UserId" name="UserId"
+											value="${User.getUserId() }">
 										<div class="form-outline">
 											<label class="form-label" for="firstName" name="fname">First
 												Name</label> <input type="text" id="firstName"
-												class="form-control form-control-lg" name="fname" /> <label
+												class="form-control form-control-lg" name="fname"
+												value=<c:out value="${User.getFiratName() }" />> <label
 												for="fname" class="error"></label>
 										</div>
 									</div>
@@ -66,7 +78,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="lastName">Last Name</label> <input
 												type="text" id="lastName"
-												class="form-control form-control-lg" name="lname" />
+												class="form-control form-control-lg" name="lname"
+												value=<c:out value="${User.getLastName() }" />>
 
 										</div>
 
@@ -81,8 +94,9 @@
 											<!-- <input type="text" class="form-control form-control-lg"
 												id="birthdayDate" name="date" /> -->
 											<!-- 				<input type="date" id="birthday" class="form-control name="date"> -->
-											<input type="text" name="date" id="datepicker" class="form-control"
-												autocomplete="off">
+											<input type="text" name="date" id="datepicker"
+												class="form-control" autocomplete="off"
+												value=<c:out value="${User.getDob() }" />>
 										</div>
 
 									</div>
@@ -93,13 +107,15 @@
 										<div class="form-check form-check-inline">
 											<label class="form-check-label" for="femaleGender">Female</label>
 											<input class="form-check-input" type="radio" name="gender"
-												id="femaleGender" value="Female" checked />
+												id="femaleGender" value="Female"
+												${User.getGender()=='Female' ? 'checked' : ''} />
 										</div>
 
 										<div class="form-check form-check-inline">
 											<label class="form-check-label" for="maleGender">Male</label>
 											<input class="form-check-input" type="radio" name="gender"
-												id="maleGender" value="Male" />
+												id="maleGender" value="Male"
+												${User.getGender()=='Male' ? 'checked' : ''} />
 										</div>
 
 									</div>
@@ -111,7 +127,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="emailAddress">Email</label> <input
 												type="email" id="emailAddress"
-												class="form-control form-control-lg" name="email" />
+												class="form-control form-control-lg" name="email"
+												value=<c:out value="${User.getEmail() }" />>
 										</div>
 										<p id="isEmailPresent"></p>
 									</div>
@@ -120,7 +137,8 @@
 										<div class="form-outline">
 											<label class="form-label" for="phoneNumber">password</label>
 											<input type="password" id="password"
-												class="form-control form-control-lg" name="password" />
+												class="form-control form-control-lg" name="password"
+												value=<c:out value="${User.getPassword() }" />>
 										</div>
 
 									</div>
@@ -131,7 +149,7 @@
 										<div class="form-outline">
 											<label class="form-label" for="mobail">MobailNo</label> <input
 												type="tel" id="mobail" class="form-control form-control-lg"
-												name="mobail" />
+												name="mobail" value=<c:out value="${User.getMobailNo() }" />>
 										</div>
 
 									</div>
@@ -140,8 +158,9 @@
 										<div class="form-outline">
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox1" name="language" value="JAVA">
-												<label class="form-check-label" for="inlineCheckbox1">JAVA</label>
+													id="inlineCheckbox1" name="language" value="JAVA"
+													${User.getLanguage()=='JAVA' ? 'checked' : ''}> <label
+													class="form-check-label" for="inlineCheckbox1">JAVA</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
@@ -172,23 +191,34 @@
 									<div class="col-md-6 mb-4 pb-2">
 										<div class="form-outline">
 											<label class="form-label select-label">answer</label> <input
-												type="text" id="answer" class="form-control form-control-lg"
-												name="answer" />
+												type="text" name="answer" id="answer"
+												class="form-control form-control-lg"
+												value=<c:out value="${User.getAnswer() }" />>
 										</div>
 
 									</div>
 								</div>
 								<div class="row">
 
-									<div class="col-md-12">
+									<!-- <div class="col-md-12">
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
-												name="profile"
+												name="profile" value="${User.getBase64Image() }"
 												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->
-										<img id="image-preview" width="100" height="100" />
+									<!--   <img id="image-preview" width="100" height="100" />
+                                            </div> -->
+									<div class="col-md-12 text-center">
+										<ul>
+											<li><a class="cam" href="javascript:void(0)"><span><i
+														class="fa fa-camera fa-fw"></i></span> </a></li>
+
+										</ul>
+									</div>
+									<div class="col-md-12">
+										<div class="gallery"></div>
 									</div>
 								</div>
 								<!-- <div class="mt-4 pt-2">
@@ -196,7 +226,7 @@
                                 </div> -->
 
 								<div id="main-container">
-									<div class="panel card container-item">
+									<%-- <div class="panel card container-item">
 										<div class="panel-body">
 											<div class="panel-body">
 
@@ -204,8 +234,9 @@
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_one_0">Country
-															</label> <input type="text" id="address_line_one_0"
-																class="form-control" name="country" maxlength="255">
+															</label> <input type="text" id="country_0" class="form-control"
+																name="country" maxlength="255"
+																value=<c:out value="${UserAddress[0].getUserId() }" />>
 															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
@@ -260,6 +291,77 @@
 											</div>
 										</div>
 									</div>
+								 --%>
+									<div class="panel card container-item">
+										<div class="panel-body">
+											<div class="panel-body">
+
+												<div class="row">
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label class="control-label" for="address_line_one_0">Country
+															</label> <input type="text" id="country_0" class="form-control"
+																name="country" maxlength="255"
+																value=<c:out value="${UserAddress[i].getCountry() }" />>
+															<p class="help-block help-block-error error"></p>
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label class="control-label" for="address_line_two_0">State
+															</label> <input type="text" id="state_0" class="form-control"
+																name="state" maxlength="255"
+																value=<c:out value="${UserAddress[i].getState() }" />>
+															<p class="help-block help-block-error"></p>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label class="control-label" for="city_0">City</label> <input
+																type="text" id="city_0" class="form-control" name="city"
+																maxlength="64"
+																value=<c:out value="${UserAddress[i].getCity() }"
+                                                                            />>
+															<p class="help-block help-block-error"></p>
+														</div>
+													</div>
+													<div class="col-sm-6">
+														<div class="form-group">
+															<label class="control-label" for="city_0">PinCode</label>
+															<input type="text" id="pincode_0" class="form-control"
+																name="pincode" maxlength="64"
+																value=<c:out value="${UserAddress[i].getPinCode() }" />>
+															<p class="help-block help-block-error"></p>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="form-group">
+															<!-- <input type="text" id="city_0" class="form-control" name="Address[0][city] address" maxlength="64"> -->
+															<label class="control-label" for="city_0">Address</label>
+															<input type="text" id="address_0" class="form-control"
+																name="address" maxlength="64"
+																value=<c:out value="${UserAddress[i].getAddress() }" />>
+															<p class="help-block help-block-error error"></p>
+														</div>
+													</div>
+
+												</div>
+
+												<div class="row">
+													<div class="col-sm-12">
+														<div>
+															<a href="javascript:void(0)"
+																class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="card">
 									<div>
@@ -270,10 +372,11 @@
 								</div>
 
 								<div class="mt-4 pt-2">
-									<input class="btn btn-primary btn-lg" type="submit"
-										value="Submit" />
+									<input class="btn btn-primary btn-lg" id="submit-btn"
+										type="submit" value="Submit" />
 								</div>
 							</form>
+							<a href="login.jsp">Login</a>
 						</div>
 					</div>
 				</div>
@@ -304,12 +407,20 @@
 
 	<!-- <script src="JS/custom.js"></script>
 	<script src="JS/validation.js"></script> -->
-
-
-
+	<c:if test="${!empty sessionScope.UserAddress }">
+		<script src="JS/editProfile.js"></script>
+	</c:if>
 	<script src="JS/postdata.js"></script>
 	<script src="JS/imagePreview.js"></script>
 	<script src="JS/getdata.js"></script>
+	<script src="multi-image/multiple-image-video(MIV).js"></script>
+	<script type="text/javascript">
+		$('.gallery').miv({
+			image : '.cam',
+			video : '.vid'
+		});
+	</script>
+
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({
@@ -318,7 +429,6 @@
 			});
 		});
 	</script>
-
 	<script>
 		$('a#add-more').cloneData({
 			mainContainerId : 'main-container', // Main container Should be ID

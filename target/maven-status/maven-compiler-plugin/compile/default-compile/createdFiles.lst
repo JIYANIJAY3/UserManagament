@@ -1,3 +1,5 @@
+service\UserInterface.class
+service\UserImpl.class
 dao\AddressDao.class
 dao\DataBaseConnection.class
 servlet\Login.class
@@ -7,15 +9,13 @@ dao\LoginDaoInterface.class
 servlet\DeleteUser.class
 bean\UserAddressBean.class
 dao\RegistrationDaoInterface.class
-service\FormDataValidationClass.class
-service\FormDataValidationInterface.class
 servlet\ShowAllUser.class
-service\RegistrationConnectionInterface.class
 servlet\Registration.class
-service\RegistrationConnectionClass.class
+servlet\GetAllUserAddress.class
 dao\LoginDao.class
 servlet\CheckEmailIsPresent.class
 servlet\LogOut.class
 util\ServletUtilClass.class
 filter\ValidationFilter.class
 bean\UserBean.class
+servlet\UpdateUserProfile.class

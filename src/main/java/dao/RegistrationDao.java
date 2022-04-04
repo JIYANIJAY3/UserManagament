@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+
 import bean.UserAddressBean;
 import bean.UserBean;
 import jakarta.servlet.http.Part;
@@ -29,17 +30,6 @@ public class RegistrationDao implements RegistrationDaoInterface {
 			try {
 
 				String sql = "INSERT INTO user(UserId, FirstName, LastName, DOB, Role, Answer, MobailNo, Gender, Hobby, Email, Password, Profile) VALUES(null,?,?,?,?,?,?,?,?,?,?,?)";
-
-//				System.out.println(userBean.getFiratName());
-//				System.out.println(userBean.getLastName());
-//				System.out.println(userBean.getDob());
-//				System.out.println(userBean.getAnswer());
-//				System.out.println(userBean.getMobailNo());
-//				System.out.println(userBean.getGender());
-//				System.out.println(userBean.getEmail());
-//				System.out.println(userBean.getPassword());
-//				System.out.println(userBean.getProfile());
-
 				ps = conn.prepareStatement(sql);
 				InputStream inputStream = null;
 
@@ -181,11 +171,13 @@ public class RegistrationDao implements RegistrationDaoInterface {
 
 					inputStream.close();
 					outputStream.close();
+					
 					userBean.setUserId(rs.getInt(1));
 					userBean.setFiratName(rs.getString(2));
 					userBean.setLastName(rs.getString(3));
 					userBean.setDob(rs.getString(4));
 					userBean.setRole(rs.getString(5));
+					userBean.setAnswer(rs.getString(6));
 					userBean.setMobailNo(rs.getString(7));
 					userBean.setGender(rs.getString(8));
 					userBean.setLanguage(rs.getString(9));
@@ -263,5 +255,87 @@ public class RegistrationDao implements RegistrationDaoInterface {
 		return 0;
 	}
 
+	public int updateEmployeeDetails(Connection con, UserBean userBean) {
 
+		PreparedStatement ps = null;
+		int status = 0;
+		if (con != null) {
+			try {
+				String sql = "update user set FirstName=?, LastName=?, DOB=?, Gender=?, Hobby=?, Password=?,Profile=? where UserId=?";
+				ps = con.prepareStatement(sql);
+
+				InputStream inputStream = null;
+
+				Part part = userBean.getProfile();
+				inputStream = part.getInputStream();
+
+				ps.setString(1, userBean.getFiratName());
+				ps.setString(2, userBean.getLastName());
+				ps.setString(3, userBean.getDob());
+				ps.setString(4, userBean.getGender());
+				ps.setString(5, userBean.getLanguage());
+				ps.setString(6, userBean.getPassword());
+				ps.setBlob(7, inputStream);
+				ps.setInt(8, userBean.getUserId());
+				log.info("here");
+				status = ps.executeUpdate();
+				log.info("done update");
+				return status;
+			} catch (Exception e) {
+				log.error(e);
+			}
+		} else {
+			return 0;
+		}
+		return status;
+	}
+
+	@Override
+	public int forgetPassword(Connection conn, String email, String answer) {
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int Id = 0;
+		if (conn != null) {
+			try {
+				log.info("forget password");
+				String sql = "SELECT * FROM user WHERE Email=? and Answer=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, email);
+				ps.setString(2, answer);
+				rs = ps.executeQuery();
+				rs.next();
+				Id = rs.getInt(1);
+				rs.close();
+				return Id;
+			} catch (Exception e) {
+				log.info(e);
+			}
+		} else {
+			log.info("Connection Is Null");
+		}
+		return Id;
+	}
+
+	@Override
+	public int updatePassword(Connection conn, int UserId, String Password) {
+		PreparedStatement ps = null;
+		int status = 0;
+		if (conn != null) {
+			try {
+				String sql = "update user set Password=? where UserId=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, Password);
+				ps.setInt(2, UserId);
+				status = ps.executeUpdate();
+				log.info("done password update");
+				return status;
+			} catch (Exception e) {
+				log.error(e);
+			}
+		} else {
+			return 0;
+		}
+		return status;
+	}
 }

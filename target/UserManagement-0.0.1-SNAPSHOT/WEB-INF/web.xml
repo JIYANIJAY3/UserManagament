@@ -9,6 +9,10 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/errorPage.jsp</location>
+  </error-page>
   <servlet>
     <description></description>
     <display-name>Registration</display-name>
@@ -87,5 +91,25 @@
   <servlet-mapping>
     <servlet-name>DeleteUser</servlet-name>
     <url-pattern>/DeleteUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllUserAddress</display-name>
+    <servlet-name>GetAllUserAddress</servlet-name>
+    <servlet-class>servlet.GetAllUserAddress</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllUserAddress</servlet-name>
+    <url-pattern>/GetAllUserAddress</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateUserProfile</display-name>
+    <servlet-name>UpdateUserProfile</servlet-name>
+    <servlet-class>servlet.UpdateUserProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateUserProfile</servlet-name>
+    <url-pattern>/UpdateUserProfile</url-pattern>
   </servlet-mapping>
 </web-app>

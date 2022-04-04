@@ -9,13 +9,10 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  
-  
   <error-page>
-  <error-code>404</error-code>
-  <location>/errorPage.jsp</location>
+    <error-code>404</error-code>
+    <location>/errorPage.jsp</location>
   </error-page>
-  
   <servlet>
     <description></description>
     <display-name>Registration</display-name>
@@ -104,5 +101,45 @@
   <servlet-mapping>
     <servlet-name>GetAllUserAddress</servlet-name>
     <url-pattern>/GetAllUserAddress</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateUserProfile</display-name>
+    <servlet-name>UpdateUserProfile</servlet-name>
+    <servlet-class>servlet.UpdateUserProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateUserProfile</servlet-name>
+    <url-pattern>/UpdateUserProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ForgotPassword</display-name>
+    <servlet-name>ForgotPassword</servlet-name>
+    <servlet-class>servlet.ForgotPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ForgotPassword</servlet-name>
+    <url-pattern>/ForgotPassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdatePassword</display-name>
+    <servlet-name>UpdatePassword</servlet-name>
+    <servlet-class>servlet.UpdatePassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdatePassword</servlet-name>
+    <url-pattern>/UpdatePassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteUserAddress</display-name>
+    <servlet-name>DeleteUserAddress</servlet-name>
+    <servlet-class>servlet.DeleteUserAddress</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteUserAddress</servlet-name>
+    <url-pattern>/DeleteUserAddress</url-pattern>
   </servlet-mapping>
 </web-app>

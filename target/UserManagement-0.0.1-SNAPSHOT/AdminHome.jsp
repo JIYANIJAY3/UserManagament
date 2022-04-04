@@ -24,18 +24,14 @@
 
 <%
 response.setHeader("Pragma", "no-cache");
-
 response.setHeader("Cache-Control", "no-store");
-
 response.setHeader("Expires", "0");
-
 response.setDateHeader("Expires", -1);
 %>
 </head>
 
 <body>
 	<jsp:useBean id="Admin" scope="session" class="bean.UserBean" />
-	<c:out value="${Admin.getUserId()}"></c:out>
 	<c:choose>
 		<c:when test="${Admin.getUserId()!= 0}">
 			<div class="container">
@@ -43,9 +39,17 @@ response.setDateHeader("Expires", -1);
 					<div class="col-md-12">
 						<h1>Welcom Admin</h1>
 						<br> <br>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
 						<div class="button-section">
-							<button>Show Profile</button>
-							<a href="LogOut">LogOut</a>
+							<a class="btn btn-primary" href="AdminProfile.jsp" role="button">Show
+								Profile</a> <a class="btn btn-danger folat-left" href="LogOut"
+								role="button">LogOut</a> <a class="btn btn-primary  float-end"
+								href="index.jsp" role="button">AddUser +</a>
 						</div>
 					</div>
 				</div>
@@ -65,6 +69,7 @@ response.setDateHeader("Expires", -1);
 										<th>Gender</th>
 										<th>language</th>
 										<th>Email</th>
+										<th>Edit</th>
 										<th>Delete</th>
 									</tr>
 								</thead>
@@ -87,6 +92,7 @@ response.setDateHeader("Expires", -1);
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 	<script src="JS/datatable.js"></script>
+	<script src="JS/editProfile.js"></script>
 </body>
 
 </html>

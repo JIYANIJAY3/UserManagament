@@ -20,7 +20,9 @@
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
-
+<link rel="stylesheet" href="multi-image/multiple-image-video(MIV).css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -28,6 +30,13 @@
 <link rel="stylesheet" href="CSS/index.css">
 <link rel="stylesheet" href="CSS/address.css">
 </head>
+<style type="text/css">
+ul li {
+	float: left;
+	list-style: outside none none;
+	padding-left: 10px;
+}
+</style>
 
 <body>
 	<section class="vh-100 gradient-custom">
@@ -51,10 +60,10 @@
 							</div>
 							<form action="Registration" method="post" id="form"
 								enctype="multipart/form-data">
-
 								<div class="row">
 									<div class="col-md-6 mb-4">
-
+										<input type="hidden" id="UserId" name="UserId"
+											value="${User.getUserId() }">
 										<div class="form-outline">
 											<label class="form-label" for="firstName" name="fname">First
 												Name</label> <input type="text" id="firstName"
@@ -97,13 +106,15 @@
 										<div class="form-check form-check-inline">
 											<label class="form-check-label" for="femaleGender">Female</label>
 											<input class="form-check-input" type="radio" name="gender"
-												id="femaleGender" value="Female" checked />
+												id="femaleGender" value="Female"
+												${User.getGender()=='Female' ? 'checked' : ''} />
 										</div>
 
 										<div class="form-check form-check-inline">
 											<label class="form-check-label" for="maleGender">Male</label>
 											<input class="form-check-input" type="radio" name="gender"
-												id="maleGender" value="Male" />
+												id="maleGender" value="Male"
+												${User.getGender()=='Male' ? 'checked' : ''} />
 										</div>
 
 									</div>
@@ -146,18 +157,21 @@
 										<div class="form-outline">
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox1" name="language" value="JAVA">
+													id="inlineCheckbox1" name="language" value="JAVA"
+													${User.getLanguage().toString().trim().contains('JAVA') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">JAVA</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox2" name="language" value="JavaScript">
+													id="inlineCheckbox2" name="language" value="JavaScript"
+													${User.getLanguage().toString().trim().contains('JavaScript') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">JavaScript</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox3" name="language" value="C++"> <label
-													class="form-check-label" for="inlineCheckbox1">C++</label>
+													id="inlineCheckbox3" name="language" value="C++"
+													${User.getLanguage().toString().trim().contains('c++') ? 'checked' : ''}>
+												<label class="form-check-label" for="inlineCheckbox1">C++</label>
 											</div>
 										</div>
 										<label class="ferror" for="mobail"></label>
@@ -191,12 +205,22 @@
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
-												name="profile"
+												name="profile" value="${User.getBase64Image() }"
 												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->
 										<img id="image-preview" width="100" height="100" />
 									</div>
+									<!-- <div class="col-md-12 text-center">
+										<ul>
+											<li><a class="cam" href="javascript:void(0)"><span><i
+														class="fa fa-camera fa-fw"></i></span> </a></li>
+
+										</ul>
+									</div>
+									<div class="col-md-12">
+										<div class="gallery"></div>
+									</div> -->
 								</div>
 								<!-- <div class="mt-4 pt-2">
                                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
@@ -208,11 +232,17 @@
 											<div class="panel-body">
 
 												<div class="row">
+													<div class="hello">
+														<input type="hidden" class="useraddress" name="AddressId"
+															id="addressId_0"
+															value=<c:out value="${UserAddress[i].getAddressId() }" />>
+													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_one_0">Country
 															</label> <input type="text" id="country_0" class="form-control"
-																name="country" maxlength="255">
+																name="country" maxlength="255"
+																value=<c:out value="${UserAddress[i].getCountry() }" />>
 															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
@@ -220,7 +250,8 @@
 														<div class="form-group">
 															<label class="control-label" for="address_line_two_0">State
 															</label> <input type="text" id="state_0" class="form-control"
-																name="state" maxlength="255">
+																name="state" maxlength="255"
+																value=<c:out value="${UserAddress[i].getState() }" />>
 															<p class="help-block help-block-error"></p>
 														</div>
 													</div>
@@ -230,7 +261,9 @@
 														<div class="form-group">
 															<label class="control-label" for="city_0">City</label> <input
 																type="text" id="city_0" class="form-control" name="city"
-																maxlength="64">
+																maxlength="64"
+																value=<c:out value="${UserAddress[i].getCity() }"
+                                                                        />>
 															<p class="help-block help-block-error"></p>
 														</div>
 													</div>
@@ -238,7 +271,8 @@
 														<div class="form-group">
 															<label class="control-label" for="city_0">PinCode</label>
 															<input type="text" id="pincode_0" class="form-control"
-																name="pincode" maxlength="64">
+																name="pincode" maxlength="64"
+																value=<c:out value="${UserAddress[i].getPinCode() }" />>
 															<p class="help-block help-block-error"></p>
 														</div>
 													</div>
@@ -249,7 +283,8 @@
 															<!-- <input type="text" id="city_0" class="form-control" name="Address[0][city] address" maxlength="64"> -->
 															<label class="control-label" for="city_0">Address</label>
 															<input type="text" id="address_0" class="form-control"
-																name="address" maxlength="64">
+																name="address" maxlength="64"
+																value=<c:out value="${UserAddress[i].getAddress() }" />>
 															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
@@ -259,8 +294,8 @@
 												<div class="row">
 													<div class="col-sm-12">
 														<div>
-															<a href="javascript:void(0)"
-																class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+															<a href="javascript:void(0)" id="remove-btn_0"
+																class="remove-item btn btn-sm btn-danger remove-social-media remove-btn">Remove</a>
 														</div>
 													</div>
 												</div>
@@ -277,8 +312,8 @@
 								</div>
 
 								<div class="mt-4 pt-2">
-									<input class="btn btn-primary btn-lg" id="submit-btn" type="submit"
-										value="Submit" />
+									<input class="btn btn-primary btn-lg" id="submit-btn"
+										type="submit" value="Submit" />
 								</div>
 							</form>
 							<a href="login.jsp">Login</a>
@@ -313,12 +348,25 @@
 	<!-- <script src="JS/custom.js"></script>
 	<script src="JS/validation.js"></script> -->
 
-
-
+	<c:choose>
+		<c:when test="${!empty sessionScope.UserAddress }">
+			<script src="JS/editProfile.js"></script>
+		</c:when>
+	</c:choose>
+	<%-- 	<c:if test="${!empty sessionScope.UserAddress }">
+		<script src="JS/editProfile.js"></script>
+	</c:if> --%>
 	<script src="JS/postdata.js"></script>
 	<script src="JS/imagePreview.js"></script>
 	<script src="JS/getdata.js"></script>
-	<script src="JS/editProfile.js"></script>
+	<script src="multi-image/multiple-image-video(MIV).js"></script>
+	<script type="text/javascript">
+		$('.gallery').miv({
+			image : '.cam',
+			video : '.vid'
+		});
+	</script>
+
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({

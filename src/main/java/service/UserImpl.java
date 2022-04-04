@@ -49,4 +49,24 @@ public class UserImpl implements UserInterface {
 		return addressDao.getUserAddress(conn, UserId);
 	}
 
+	@Override
+	public int updateUser(Connection conn, UserBean userBean) {
+		return registrationDao.updateEmployeeDetails(conn, userBean);
+	}
+
+	@Override
+	public int forgetPassword(Connection conn, String email, String answer) {
+		return registrationDao.forgetPassword(conn, email, answer);
+	}
+
+	@Override
+	public int updatePassword(Connection conn, int UserId, String Password) {
+		return registrationDao.updatePassword(conn, UserId, Password);
+	}
+
+	@Override
+	public int updateUserAddress(Connection conn, List<UserAddressBean> addressList) {
+		return addressDao.updateUserAddress(conn, addressList);
+	}
+
 }

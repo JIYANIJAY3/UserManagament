@@ -16,11 +16,12 @@ $(document).ready(function() {
 			{ "data": "Gender" },
 			{ "data": "language" },
 			{ "data": "Email" },
-			{ "defaultContent": "<button>Delete</button>" }
+			{ "defaultContent": "	<a class='btn btn-success' href='index.jsp' id='edit-btn' role='button'>Edit</a>" },
+			{ "defaultContent": "	<a class='btn btn-danger' id='delete-btn' role='button'>Delete</a>" }
 		]
 	});
 
-	$('#table_id').on('click', 'button', function(event) {
+	$('#table_id').on('click', '#delete-btn', function(event) {
 		event.preventDefault();
 		var data = table.row($(this).parents('tr')).data();
 		var UserId = data.UserId;
@@ -40,4 +41,34 @@ $(document).ready(function() {
 		})
 
 	});
+	
+	$('#table_id').on('click', '#edit-btn', function(event) {
+	//	event.preventDefault();
+		
+        $.ajax({
+            url: "GetAllUserAddress",
+            type: "get",
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                location.href = "index.jsp"
+              /*  var dataLength = Object.keys(data).length
+                alert("This Is Done")
+                for (var i = 0; i < dataLength - 1; i++) {
+                    $("#add-more").trigger('click');
+                }
+                for (var i = 0; i <= dataLength; i++) {
+                    $("#country_" + i).val(data[i].country);
+                    $("#state_" + i).val(data[i].state);
+                    $("#city_" + i).val(data[i].city);
+                    $("#pincode_" + i).val(data[i].pinCode);
+                    $("#address_" + i).val(data[i].address);
+                }*/
+
+            },
+            error: function() {
+                alert("This Is Error")
+            }
+        })
+    })
 });

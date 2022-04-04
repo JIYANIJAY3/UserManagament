@@ -54,8 +54,10 @@ public class Login extends HttpServlet {
 				UserBean bean = registrationDao.getEmployeeByEmail(conn, email);
 				session.setAttribute("User", bean);
 				int UserId = bean.getUserId();
+				log.info("language "+bean.getLanguage());
 				List<UserAddressBean> list = addressDao.getUserAddress(conn, UserId);
 				session.setAttribute("UserAddress", list);
+				log.info(list.size());
 				response.sendRedirect("UserHome.jsp");
 				
 			} else if (Role.equals("Admin")) {

@@ -15,4 +15,6 @@ public interface RegistrationDaoInterface {
 	public UserBean getEmployeeByEmail(Connection con, String email);
 	public List<UserBean> getAllUser(Connection conn);
 	public int deleteUserById(Connection conn,int UserId);
+	public int forgetPassword(Connection conn, String email,String answer);
+	public int updatePassword(Connection conn,int UserId,String Password);
 }
