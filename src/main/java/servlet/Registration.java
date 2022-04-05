@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import bean.UserAddressBean;
@@ -26,6 +27,7 @@ import dao.DataBaseConnection;
 public class Registration extends HttpServlet {
 
 	static Logger log = Logger.getLogger(Registration.class.getName());
+	final static Logger logger = LogManager.getLogger(Registration.class);
 	private static final long serialVersionUID = 1L;
 
 	Connection conn = null;
@@ -40,6 +42,7 @@ public class Registration extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
+		//Get the registration form value one by one
 		String firstname = request.getParameter("fname");
 		String lastname = request.getParameter("lname");
 		String date = request.getParameter("date");
@@ -50,17 +53,12 @@ public class Registration extends HttpServlet {
 		String mobail = request.getParameter("mobail");
 		Part filePart = request.getPart("profile");
 		
-		List<Part> l = new ArrayList<Part>();
-		
-		for (Part part : request.getParts()) {
-			l.add(part);
-		}
-		log.info(l.get(0));
-		log.info(l.size());
-		
 		String[] language = request.getParameterValues("language");
+		
+		//Store check box value
 		String storelanguage = " ";
 
+		//Store check-box value into storelanguage variable
 		for (int i = 0; i < language.length; i++) {
 			storelanguage += language[i] + " ";
 		}
@@ -83,11 +81,13 @@ public class Registration extends HttpServlet {
 		String[] pincode = request.getParameterValues("pincode");
 		String[] address = request.getParameterValues("address");
 
+		//Define Userimpl class object 
 		UserInterface userInterface = new UserImpl();
 
 		int status = userInterface.getUserStatus(conn, userBean);
 		int getUserId = userInterface.getUserId(conn, email);
 
+		//Store all address on registration page
 		List<UserAddressBean> addressList = new ArrayList<UserAddressBean>();
 		for (int i = 0; i < country.length; i++) {
 			UserAddressBean addressBean = new UserAddressBean();
@@ -100,6 +100,7 @@ public class Registration extends HttpServlet {
 			addressList.add(addressBean);
 		}
 
+		//Check UserAddress store into database or nots
 		int addressStatus = userInterface.getUserAddressStatus(conn, addressList);
 
 		log.info("here");

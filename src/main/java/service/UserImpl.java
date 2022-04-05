@@ -74,4 +74,19 @@ public class UserImpl implements UserInterface {
 		return addressDao.addUserAddress(conn, addressList);
 	}
 
+	@Override
+	public List<Integer> getUserAddressId(Connection conn, int UserId) {
+		return addressDao.getUserAddressId(conn, UserId);
+	}
+
+	@Override
+	public int deleteUserAddress(Connection conn, List<Integer> list, int UserId) {
+		return addressDao.deleteUserAddress(conn, list, UserId);
+	}
+
+	@Override
+	public UserBean getEmployeeByEmail(Connection conn, String email) {
+		return registrationDao.getEmployeeByEmail(conn, email);
+	}
+
 }

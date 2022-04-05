@@ -29,7 +29,6 @@ response.setHeader("Expires", "0");
 response.setDateHeader("Expires", -1);
 %>
 </head>
-
 <body>
 	<jsp:useBean id="Admin" scope="session" class="bean.UserBean" />
 	<c:choose>
@@ -91,6 +90,7 @@ response.setDateHeader("Expires", -1);
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="JS/datatable.js"></script>
 </body>
 

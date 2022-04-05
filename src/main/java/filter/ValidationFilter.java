@@ -10,6 +10,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import util.ServletUtilClass;
+import util.Validation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +24,6 @@ public class ValidationFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
 		Filter.super.init(filterConfig);
 	}
 
@@ -46,9 +46,7 @@ public class ValidationFilter implements Filter {
 		String answer = request.getParameter("answer");
 		String mobail = request.getParameter("mobail");
 
-		if (firstname.isEmpty()) {
-			log.info("fname empty");
-
+		if (!Validation.checkNameValidation(firstname)) {
 			try {
 				ServletUtilClass.setErrorMessage("fname is empty", req);
 				ServletUtilClass.forward("index.jsp", req, res);
@@ -57,8 +55,7 @@ public class ValidationFilter implements Filter {
 				e.printStackTrace();
 			}
 
-		}
-		else if(lastname.isEmpty()){
+		} else if (!Validation.checkNameValidation(lastname)) {
 			log.info("lname empty");
 
 			try {
@@ -68,7 +65,7 @@ public class ValidationFilter implements Filter {
 				log.info(e);
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			log.info("Do Filter Call");
 			chain.doFilter(request, response);
 		}

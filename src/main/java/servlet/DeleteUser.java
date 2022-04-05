@@ -34,6 +34,8 @@ public class DeleteUser extends HttpServlet {
 		
 		String UserId = request.getParameter("UserId");
 		UserImpl impl = new UserImpl();
+		
+		//Delete User By Admin
 		int status = impl.deleteUserById(conn, Integer.parseInt(UserId));
 
 		if (status > 0) {

@@ -41,8 +41,13 @@ public class GetAllUserAddress extends HttpServlet {
 
 		String UserId = request.getParameter("UserId");
 		UserImpl impl = new UserImpl();
+		
+		//Get All UserAddress List
 		List<UserAddressBean> list = impl.getUserAddress(conn, Integer.parseInt(UserId));
+		
 		log.info(list.size());
+		
+		//Convert List Data To -> JSON Data 
 		Gson gson = new Gson();
 		out.print(gson.toJson(list));
 	}

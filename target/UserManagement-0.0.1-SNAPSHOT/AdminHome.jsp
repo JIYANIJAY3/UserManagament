@@ -29,7 +29,6 @@ response.setHeader("Expires", "0");
 response.setDateHeader("Expires", -1);
 %>
 </head>
-
 <body>
 	<jsp:useBean id="Admin" scope="session" class="bean.UserBean" />
 	<c:choose>
@@ -47,9 +46,9 @@ response.setDateHeader("Expires", -1);
 					<div class="col-md-12">
 						<div class="button-section">
 							<a class="btn btn-primary" href="AdminProfile.jsp" role="button">Show
-								Profile</a> <a class="btn btn-danger folat-left" href="LogOut"
-								role="button">LogOut</a> <a class="btn btn-primary  float-end"
-								href="index.jsp" role="button">AddUser +</a>
+								Profile</a> <a class="btn btn-primary" href="index.jsp"
+								role="button">AddUser +</a><a class="btn btn-danger float-end"
+								href="LogOut" role="button">LogOut</a>
 						</div>
 					</div>
 				</div>
@@ -91,8 +90,8 @@ response.setDateHeader("Expires", -1);
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="JS/datatable.js"></script>
-	<script src="JS/editProfile.js"></script>
 </body>
 
 </html>

@@ -27,10 +27,13 @@ $(document).ready(function() {
 		error: function() {
 			alert("This Is Error from editprofile")
 		}
-
 	})
 
 	$("#submit-btn").attr('id', 'edit-btn-id').val("Edit")
+	$("#form-heading").html("Update Profile")
+	
+	
+	
 	$("input[type='email']").prop({
 		disabled: true
 	})
@@ -68,19 +71,4 @@ $(document).ready(function() {
 			});
 		})
 	})
-
-	$(document).on('click', '.remove-btn', function(event) {
-		var id = $(this).find('input').first().attr('id');
-		alert("done")
-		$.ajax({
-			type: "post",
-			url: "DeleteUserAddress",
-			data: "data",
-			dataType: "dataType",
-			success: function(response) {
-
-			}
-		});
-	})
-
 })

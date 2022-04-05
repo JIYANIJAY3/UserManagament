@@ -1,9 +1,5 @@
 $(document).ready(function() {
-
-
-
     $("#submit-btn").click(function(event) {
-	alert("submit ok")
             $("form").submit(function(event) {
                 event.preventDefault();
 
@@ -22,11 +18,11 @@ $(document).ready(function() {
 
                     success: function(response) {
                         $("#form").show();
-
+                       
                         if (response.trim() === "Successfully Added...") {
-                            $("#massage").html("Successfully Added...").css("color", "green");
+                             swal("Successfully Added","You clicked the submit!", "success");
                         } else {
-                            $("#massage").html("Somthing Went Wrong... :( ").css("color", "red");
+                            swal("Somthing Went Wrong","You clicked the submit!", "warning");
                         }
                     },
                     error: function(textStatus) {

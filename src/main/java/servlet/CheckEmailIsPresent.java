@@ -32,8 +32,9 @@ public class CheckEmailIsPresent extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		UserInterface userInterface = new UserImpl();
-		UserImpl impl = new UserImpl();
-		boolean status = impl.getEmailIsPresent(conn, email);
+		
+		//Check Email Is Present In DataBase Or Not On User Registration Time
+		boolean status = userInterface.getEmailIsPresent(conn, email);
 
 		if(status)
 		{

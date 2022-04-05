@@ -50,7 +50,7 @@ public class AddressDao implements AddressDaoInterface {
 			try {
 				String setAddress = "UPDATE address SET Country=?, Address=?, PinCode=?, City=?, State=? where AddressId=?";
 				ps = conn.prepareStatement(setAddress);
-				
+
 				for (int i = 0; i < addressList.size(); i++) {
 					UserAddressBean addressBean = addressList.get(i);
 					log.info("AddressID " + addressBean.getAddressId());
@@ -104,6 +104,55 @@ public class AddressDao implements AddressDaoInterface {
 			log.error("Connection Is Null");
 		}
 
+		return 0;
+	}
+
+	@Override
+	public List<Integer> getUserAddressId(Connection conn, int UserId) {
+		List<Integer> AddrerssIdList = new ArrayList<Integer>();
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String set = "SELECT AddressId from address where UserId=?";
+
+			ps = conn.prepareStatement(set);
+			ps.setInt(1, UserId);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				AddrerssIdList.add(rs.getInt(1));
+			}
+		} catch (Exception e) {
+			log.info(e);
+		}
+		return AddrerssIdList;
+	}
+
+	@Override
+	public int deleteUserAddress(Connection conn, List<Integer> list, int UserId) {
+
+		PreparedStatement ps = null;
+
+		if (conn != null) {
+			String sql = "DELETE FROM address WHERE AddressId=? and UserId=?";
+			try {
+				ps = conn.prepareStatement(sql);
+
+				for (Integer addresslist : list) {
+					ps.setInt(1, addresslist);
+					ps.setInt(2, UserId);
+					ps.addBatch();
+				}
+				ps.executeBatch();
+				System.out.println("ok");
+				return 1;
+			} catch (Exception e) {
+				log.info(e);
+			}
+		} else {
+			log.info("Connection Is Null");
+		}
 		return 0;
 	}
 

@@ -7,6 +7,7 @@
 <%@ page import="servlet.Login"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -21,24 +22,23 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="CSS/UserHome.css">
+<%
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setHeader("Expires", "0");
+response.setDateHeader("Expires", -1);
+%>
 </head>
 
 
-<%
-response.setHeader("Pragma", "no-cache");
-
-response.setHeader("Cache-Control", "no-store");
-
-response.setHeader("Expires", "0");
-
-response.setDateHeader("Expires", -1);
-%>
 <body>
 
 	<c:import url="Header.jsp"></c:import>
 	<jsp:useBean id="User" scope="session" class="bean.UserBean" />
 	<c:choose>
-		<c:when test="${User.getUserId()!=0 }">
+		<c:when test="${User.getUserId()!= 0 }">
 			<section style="background-color: #eee;">
 				<div class="container py-5">
 					<div class="row">
@@ -159,4 +159,5 @@ response.setDateHeader("Expires", -1);
 	</c:choose>
 
 </body>
+
 </html>

@@ -44,10 +44,13 @@ public class ShowAllUser extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
+		//Define UserImpl class object for  
 		UserImpl impl = new UserImpl();
 		
+		//Get AllUser For show AdminPage 
 		List<UserBean> list = impl.getAllUser(conn);
 		
+		//Convert list To->JSON DATA
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonObject json = new JsonObject();
 		json.add("data", gson.toJsonTree(list));

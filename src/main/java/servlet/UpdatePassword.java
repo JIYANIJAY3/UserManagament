@@ -35,6 +35,7 @@ public class UpdatePassword extends HttpServlet {
 
 		UserInterface userInterface = new UserImpl();
 
+		//Check Password are Update or Not
 		int status = userInterface.updatePassword(conn, Integer.parseInt(UserId), password);
 
 		if (status > 0) {

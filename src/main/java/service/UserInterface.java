@@ -19,4 +19,7 @@ public interface UserInterface {
 	public int updatePassword(Connection conn,int UserId,String Password);
 	public int updateUserAddress(Connection conn,List<UserAddressBean> addressList);
 	public int addUserAddress(Connection conn,List<UserAddressBean> addressList);
+	public List<Integer> getUserAddressId(Connection conn,int UserId);
+	public int deleteUserAddress(Connection conn,List<Integer> list,int UserId);
+	public UserBean getEmployeeByEmail(Connection con, String email);
 }

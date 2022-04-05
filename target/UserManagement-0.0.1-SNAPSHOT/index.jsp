@@ -46,8 +46,8 @@ ul li {
 					<div class="card shadow-2-strong card-registration"
 						style="border-radius: 15px;">
 						<div class="card-body p-4 p-md-5">
-							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-							<c:out value="hello ${User.getLanguage().toString() }"></c:out>
+							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 heading" id="form-heading">Registration
+								Form</h3>
 							<!-- 
 							<div class="container text-center">
 								<div class="spinner-border loader" role="status" style="display:non">
@@ -78,8 +78,9 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label" for="lastName">Last Name</label> <input
 												type="text" id="lastName"
-												class="form-control form-control-lg" name="lname"
-												value=<c:out value="${User.getLastName() }" />>
+												class="form-control
+																	form-control-lg"
+												name="lname" value=<c:out value="${User.getLastName() }" />>
 
 										</div>
 
@@ -127,8 +128,9 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label" for="emailAddress">Email</label> <input
 												type="email" id="emailAddress"
-												class="form-control form-control-lg" name="email"
-												value=<c:out value="${User.getEmail() }" />>
+												class="form-control
+																	form-control-lg"
+												name="email" value=<c:out value="${User.getEmail() }" />>
 										</div>
 										<p id="isEmailPresent"></p>
 									</div>
@@ -137,7 +139,9 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label" for="phoneNumber">password</label>
 											<input type="password" id="password"
-												class="form-control form-control-lg" name="password"
+												class="form-control
+																	form-control-lg"
+												name="password"
 												value=<c:out value="${User.getPassword() }" />>
 										</div>
 
@@ -159,18 +163,20 @@ ul li {
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
 													id="inlineCheckbox1" name="language" value="JAVA"
-													${User.getLanguage()=='JAVA' ? 'checked' : ''}> <label
-													class="form-check-label" for="inlineCheckbox1">JAVA</label>
+													${User.getLanguage().toString().trim().contains( 'JAVA') ? 'checked' : ''}>
+												<label class="form-check-label" for="inlineCheckbox1">JAVA</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox2" name="language" value="JavaScript">
+													id="inlineCheckbox2" name="language" value="JavaScript"
+													${User.getLanguage().toString().trim().contains( 'JavaScript') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">JavaScript</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
-													id="inlineCheckbox3" name="language" value="C++"> <label
-													class="form-check-label" for="inlineCheckbox1">C++</label>
+													id="inlineCheckbox3" name="language" value="C++"
+													${User.getLanguage().toString().trim().contains( 'C++') ? 'checked' : ''}>
+												<label class="form-check-label" for="inlineCheckbox1">C++</label>
 											</div>
 										</div>
 										<label class="ferror" for="mobail"></label>
@@ -192,7 +198,8 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label select-label">answer</label> <input
 												type="text" name="answer" id="answer"
-												class="form-control form-control-lg"
+												class="form-control
+																	form-control-lg"
 												value=<c:out value="${User.getAnswer() }" />>
 										</div>
 
@@ -200,17 +207,20 @@ ul li {
 								</div>
 								<div class="row">
 
-									<!-- <div class="col-md-12">
+									<div class="col-md-12">
 										<div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
-												name="profile" value="${User.getBase64Image() }"
-												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
+												name="profile"
+												onchange="document.getElementById('image-preview').src=
+																	window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->
-									<!--   <img id="image-preview" width="100" height="100" />
-                                            </div> -->
-									<div class="col-md-12 text-center">
+										<img id="image-preview"
+											src="data:image/jpg;base64,${User.getBase64Image()}"
+											width="100" height="100" />
+									</div>
+									<!-- <div class="col-md-12 text-center">
 										<ul>
 											<li><a class="cam" href="javascript:void(0)"><span><i
 														class="fa fa-camera fa-fw"></i></span> </a></li>
@@ -219,84 +229,22 @@ ul li {
 									</div>
 									<div class="col-md-12">
 										<div class="gallery"></div>
-									</div>
+									</div> -->
 								</div>
 								<!-- <div class="mt-4 pt-2">
                                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
                                 </div> -->
-
 								<div id="main-container">
-									<%-- <div class="panel card container-item">
-										<div class="panel-body">
-											<div class="panel-body">
-
-												<div class="row">
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label class="control-label" for="address_line_one_0">Country
-															</label> <input type="text" id="country_0" class="form-control"
-																name="country" maxlength="255"
-																value=<c:out value="${UserAddress[0].getUserId() }" />>
-															<p class="help-block help-block-error error"></p>
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label class="control-label" for="address_line_two_0">State
-															</label> <input type="text" id="state_0" class="form-control"
-																name="state" maxlength="255">
-															<p class="help-block help-block-error"></p>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label class="control-label" for="city_0">City</label> <input
-																type="text" id="city_0" class="form-control" name="city"
-																maxlength="64">
-															<p class="help-block help-block-error"></p>
-														</div>
-													</div>
-													<div class="col-sm-6">
-														<div class="form-group">
-															<label class="control-label" for="city_0">PinCode</label>
-															<input type="text" id="pincode_0" class="form-control"
-																name="pincode" maxlength="64">
-															<p class="help-block help-block-error"></p>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<div class="form-group">
-															<!-- <input type="text" id="city_0" class="form-control" name="Address[0][city] address" maxlength="64"> -->
-															<label class="control-label" for="city_0">Address</label>
-															<input type="text" id="address_0" class="form-control"
-																name="address" maxlength="64">
-															<p class="help-block help-block-error error"></p>
-														</div>
-													</div>
-
-												</div>
-
-												<div class="row">
-													<div class="col-sm-12">
-														<div>
-															<a href="javascript:void(0)"
-																class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								 --%>
 									<div class="panel card container-item">
 										<div class="panel-body">
 											<div class="panel-body">
 
 												<div class="row">
+													<div class="hello">
+														<input type="hidden" class="useraddress" name="AddressId"
+															id="addressId_0"
+															value=<c:out value="${UserAddress[i].getAddressId() }" />>
+													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_one_0">Country
@@ -322,8 +270,7 @@ ul li {
 															<label class="control-label" for="city_0">City</label> <input
 																type="text" id="city_0" class="form-control" name="city"
 																maxlength="64"
-																value=<c:out value="${UserAddress[i].getCity() }"
-                                                                            />>
+																value=<c:out value="${UserAddress[i].getCity() }" />>
 															<p class="help-block help-block-error"></p>
 														</div>
 													</div>
@@ -348,14 +295,13 @@ ul li {
 															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
-
 												</div>
-
 												<div class="row">
 													<div class="col-sm-12">
 														<div>
-															<a href="javascript:void(0)"
-																class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>
+															<a href="javascript:void(0)" id="remove-btn_0"
+																class="remove-item btn btn-sm btn-danger
+																					remove-social-media remove-btn">Remove</a>
 														</div>
 													</div>
 												</div>
@@ -404,12 +350,18 @@ ul li {
 	<script
 		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 	<script src="address-plugin/cloneData.js" type="text/javascript"></script>
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- <script src="JS/custom.js"></script>
 	<script src="JS/validation.js"></script> -->
-	<c:if test="${!empty sessionScope.UserAddress }">
+	<c:choose>
+		<c:when test="${!empty sessionScope.UserAddress }">
+			<script src="JS/editProfile.js"></script>
+		</c:when>
+	</c:choose>
+
+	<%-- 	<c:if test="${!empty sessionScope.UserAddress }">
 		<script src="JS/editProfile.js"></script>
-	</c:if>
+	</c:if> --%>
 	<script src="JS/postdata.js"></script>
 	<script src="JS/imagePreview.js"></script>
 	<script src="JS/getdata.js"></script>
@@ -424,6 +376,8 @@ ul li {
 	<script>
 		$(function() {
 			$("#datepicker").datepicker({
+				changeMonth : true,
+				changeYear : true,
 				maxDate : new Date(),
 				dateFormat : "yy-mm-dd"
 			});

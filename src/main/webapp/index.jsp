@@ -46,7 +46,8 @@ ul li {
 					<div class="card shadow-2-strong card-registration"
 						style="border-radius: 15px;">
 						<div class="card-body p-4 p-md-5">
-							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+							<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 heading" id="form-heading">Registration
+								Form</h3>
 							<!-- 
 							<div class="container text-center">
 								<div class="spinner-border loader" role="status" style="display:non">
@@ -77,8 +78,9 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label" for="lastName">Last Name</label> <input
 												type="text" id="lastName"
-												class="form-control form-control-lg" name="lname"
-												value=<c:out value="${User.getLastName() }" />>
+												class="form-control
+																	form-control-lg"
+												name="lname" value=<c:out value="${User.getLastName() }" />>
 
 										</div>
 
@@ -126,8 +128,9 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label" for="emailAddress">Email</label> <input
 												type="email" id="emailAddress"
-												class="form-control form-control-lg" name="email"
-												value=<c:out value="${User.getEmail() }" />>
+												class="form-control
+																	form-control-lg"
+												name="email" value=<c:out value="${User.getEmail() }" />>
 										</div>
 										<p id="isEmailPresent"></p>
 									</div>
@@ -136,7 +139,9 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label" for="phoneNumber">password</label>
 											<input type="password" id="password"
-												class="form-control form-control-lg" name="password"
+												class="form-control
+																	form-control-lg"
+												name="password"
 												value=<c:out value="${User.getPassword() }" />>
 										</div>
 
@@ -158,19 +163,19 @@ ul li {
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
 													id="inlineCheckbox1" name="language" value="JAVA"
-													${User.getLanguage().toString().trim().contains('JAVA') ? 'checked' : ''}>
+													${User.getLanguage().toString().trim().contains( 'JAVA') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">JAVA</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
 													id="inlineCheckbox2" name="language" value="JavaScript"
-													${User.getLanguage().toString().trim().contains('JavaScript') ? 'checked' : ''}>
+													${User.getLanguage().toString().trim().contains( 'JavaScript') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">JavaScript</label>
 											</div>
 											<div class="form-check form-check-inline">
 												<input class="form-check-input" type="checkbox"
 													id="inlineCheckbox3" name="language" value="C++"
-													${User.getLanguage().toString().trim().contains('C++') ? 'checked' : ''}>
+													${User.getLanguage().toString().trim().contains( 'C++') ? 'checked' : ''}>
 												<label class="form-check-label" for="inlineCheckbox1">C++</label>
 											</div>
 										</div>
@@ -193,7 +198,8 @@ ul li {
 										<div class="form-outline">
 											<label class="form-label select-label">answer</label> <input
 												type="text" name="answer" id="answer"
-												class="form-control form-control-lg"
+												class="form-control
+																	form-control-lg"
 												value=<c:out value="${User.getAnswer() }" />>
 										</div>
 
@@ -206,7 +212,8 @@ ul li {
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
 												name="profile"
-												onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
+												onchange="document.getElementById('image-preview').src=
+																	window.URL.createObjectURL(this.files[0])">
 										</div>
 										<!-- <div id="image-preview"></div> -->
 										<img id="image-preview"
@@ -227,7 +234,6 @@ ul li {
 								<!-- <div class="mt-4 pt-2">
                                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
                                 </div> -->
-
 								<div id="main-container">
 									<div class="panel card container-item">
 										<div class="panel-body">
@@ -264,8 +270,7 @@ ul li {
 															<label class="control-label" for="city_0">City</label> <input
 																type="text" id="city_0" class="form-control" name="city"
 																maxlength="64"
-																value=<c:out value="${UserAddress[i].getCity() }"
-                                                                        />>
+																value=<c:out value="${UserAddress[i].getCity() }" />>
 															<p class="help-block help-block-error"></p>
 														</div>
 													</div>
@@ -295,7 +300,8 @@ ul li {
 													<div class="col-sm-12">
 														<div>
 															<a href="javascript:void(0)" id="remove-btn_0"
-																class="remove-item btn btn-sm btn-danger remove-social-media remove-btn">Remove</a>
+																class="remove-item btn btn-sm btn-danger
+																					remove-social-media remove-btn">Remove</a>
 														</div>
 													</div>
 												</div>
@@ -344,15 +350,15 @@ ul li {
 	<script
 		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 	<script src="address-plugin/cloneData.js" type="text/javascript"></script>
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- <script src="JS/custom.js"></script>
 	<script src="JS/validation.js"></script> -->
-
 	<c:choose>
 		<c:when test="${!empty sessionScope.UserAddress }">
 			<script src="JS/editProfile.js"></script>
 		</c:when>
 	</c:choose>
+
 	<%-- 	<c:if test="${!empty sessionScope.UserAddress }">
 		<script src="JS/editProfile.js"></script>
 	</c:if> --%>
