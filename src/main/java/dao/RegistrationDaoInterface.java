@@ -8,13 +8,13 @@ import bean.UserBean;
 
 public interface RegistrationDaoInterface {
 
-	public int addEmployee(Connection conn, UserBean userBean);
-	public int addEmployeeAddress(Connection conn, List<UserAddressBean> addressList);
-	public int getEmployeeId(Connection conn,String Email);
-	public boolean getEmailIsPresent(Connection conn,String Email);
-	public UserBean getEmployeeByEmail(Connection con, String email);
-	public List<UserBean> getAllUser(Connection conn);
-	public int deleteUserById(Connection conn,int UserId);
-	public int forgetPassword(Connection conn, String email,String answer);
-	public int updatePassword(Connection conn,int UserId,String Password);
+	 int addEmployee(Connection conn, UserBean userBean);
+	 int addEmployeeAddress(Connection conn, List<UserAddressBean> addressList);
+	 int getEmployeeId(Connection conn,String Email);
+	 boolean getEmailIsPresent(Connection conn,String Email);
+	 UserBean getEmployeeByEmail(Connection con, String email);
+	 List<UserBean> getAllUser(Connection conn);
+	 int deleteUserById(Connection conn,int UserId);
+	 int forgetPassword(Connection conn, String email,String answer);
+	 int updatePassword(Connection conn,int UserId,String Password);
 }

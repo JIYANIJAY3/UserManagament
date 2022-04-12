@@ -15,9 +15,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-
 import bean.UserAddressBean;
 import dao.DataBaseConnection;
 
@@ -26,7 +23,7 @@ public class GetAllUserAddress extends HttpServlet {
 	static Logger log = Logger.getLogger(GetAllUserAddress.class.getName());
 
 	private static final long serialVersionUID = 1L;
-	Connection conn = null;
+	transient Connection conn = null;
 
 	@Override
 	public void init() throws ServletException {
@@ -40,6 +37,7 @@ public class GetAllUserAddress extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String UserId = request.getParameter("UserId");
+		log.info("uid "+UserId);
 		UserImpl impl = new UserImpl();
 		
 		//Get All UserAddress List
@@ -50,11 +48,5 @@ public class GetAllUserAddress extends HttpServlet {
 		//Convert List Data To -> JSON Data 
 		Gson gson = new Gson();
 		out.print(gson.toJson(list));
-	}
-
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		super.destroy();
 	}
 }

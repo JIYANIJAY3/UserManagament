@@ -139,8 +139,16 @@ response.setDateHeader("Expires", -1);
 										</div>
 										<div class="col-sm-9">
 											<p class="text-muted mb-0">
-												<img src="data:image/jpg;base64,${User.getBase64Image()}"
-													width="240" height="200" />
+												<c:choose>
+													<c:when test="${!empty sessionScope.User}">
+														<c:forEach items="${UserProfile}" var='userprofile'>
+															<img
+																src="data:image/jpg;base64,${userprofile.base64Image}"
+																	class="image" width="100" height="100" />
+															</span>
+														</c:forEach>
+													</c:when>
+												</c:choose>
 											</p>
 										</div>
 									</div>
@@ -157,7 +165,7 @@ response.setDateHeader("Expires", -1);
 			<c:redirect url="login.jsp" />
 		</c:otherwise>
 	</c:choose>
-
+	<c:import url="footer.jsp"></c:import>
 </body>
 
 </html>

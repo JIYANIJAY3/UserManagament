@@ -18,7 +18,7 @@ $(document).ready(function() {
 				}
 			},
 			error: function(textStatus) {
-				alert("not call")
+				swal.fire("Somthing Went Wrong", " ", "warning");
 			}
 		});
 	});

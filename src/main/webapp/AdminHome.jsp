@@ -30,6 +30,7 @@ response.setDateHeader("Expires", -1);
 %>
 </head>
 <body>
+	<c:import url="AdminHeader.jsp"></c:import>
 	<jsp:useBean id="Admin" scope="session" class="bean.UserBean" />
 	<c:choose>
 		<c:when test="${Admin.getUserId()!= 0}">
@@ -56,7 +57,7 @@ response.setDateHeader("Expires", -1);
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<div>
+						<div class="datatable-class" style="margin-bottom: 20px">
 							<table id="table_id" class="display">
 								<thead>
 									<tr>
@@ -90,8 +91,12 @@ response.setDateHeader("Expires", -1);
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="JS/datatable.js"></script>
+
+	<c:import url="footer.jsp"></c:import>
+
 </body>
 
 </html>

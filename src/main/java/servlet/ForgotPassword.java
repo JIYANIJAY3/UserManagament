@@ -2,7 +2,6 @@ package servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,14 +15,13 @@ import java.sql.Connection;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import bean.UserBean;
 import dao.DataBaseConnection;
-import dao.RegistrationDao;
+
 
 public class ForgotPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger log = Logger.getLogger(ForgotPassword.class.getName());
-	Connection conn = null;
+	transient Connection conn = null;
 
 	@Override
 	public void init() throws ServletException {
@@ -56,11 +54,4 @@ public class ForgotPassword extends HttpServlet {
 			out.print("Try Again Somthing Went To Wrong!");
 		}
 	}
-
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		super.destroy();
-	}
-
 }

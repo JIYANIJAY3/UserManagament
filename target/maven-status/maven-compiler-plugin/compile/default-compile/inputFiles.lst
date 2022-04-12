@@ -1,9 +1,14 @@
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\bean\UserProfileBean.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\service\UserInterface.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\bean\UserAddressBean.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\CheckEmailIsPresent.java
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\util\PassWordEncriptionDecription.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\util\Validation.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\GetAllUserAddress.java
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\UserProfileleDaoInterface.java
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\UserProfileDao.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\util\ServletUtilClass.java
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\service\UserProfileImpl.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\LoginDao.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\service\UserImpl.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\DeleteUser.java
@@ -13,6 +18,7 @@ C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\ForgotPass
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\Login.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\Registration.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\AddressDao.java
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\service\UserProfileInterface.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\bean\UserBean.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\DataBaseConnection.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\LogOut.java
@@ -20,6 +26,7 @@ C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\AddressDaoInte
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\RegistrationDao.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\filter\ValidationFilter.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\GetAllUserDetails.java
+C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\servlet\DeleteUserProfile.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\LoginDaoInterface.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\dao\RegistrationDaoInterface.java
 C:\Users\ADMIN\eclipse-workspace\UserManagement\src\main\java\service\UserAddressInterface.java

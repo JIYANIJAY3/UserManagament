@@ -23,22 +23,40 @@ $(document).ready(function() {
 
 	$('#table_id').on('click', '#delete-btn', function(event) {
 		event.preventDefault();
-		var data = table.row($(this).parents('tr')).data();
-		var UserId = data.UserId;
-		console.log(UserId);
 
-		$.ajax({
-			type: "post",
-			url: "DeleteUser",
-			data: { "UserId": UserId },
-			success: function() {
-				alert("ok")
-				table.ajax.reload();
-			},
-			error: function(textStatus) {
-				alert("not call")
-			},
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				var data = table.row($(this).parents('tr')).data();
+				var UserId = data.UserId;
+				console.log(UserId);
+
+				$.ajax({
+					type: "post",
+					url: "DeleteUser",
+					data: { "UserId": UserId },
+					success: function() {
+						Swal.fire(
+							'Deleted!',
+							'Your Profile has been deleted.',
+							'success'
+						)
+						table.ajax.reload();
+					},
+					error: function(textStatus) {
+						alert("not call")
+					},
+				})
+			}
 		})
+
 
 	});
 
@@ -59,8 +77,3 @@ $(document).ready(function() {
 		});
 	})
 });
-
-function toggleAlert() {
-	$(".alert").toggleClass('in out');
-	return false; // Keep close.bs.alert event from removing from DOM
-}

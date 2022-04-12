@@ -20,15 +20,24 @@
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="multi-image/multiple-image-video(MIV).css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="image-uploader-master/dist/image-uploader.min.css">
 <link rel="stylesheet" href="CSS/index.css">
 <link rel="stylesheet" href="CSS/address.css">
+<%
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setHeader("Expires", "0");
+response.setDateHeader("Expires", -1);
+%>
 </head>
 <style type="text/css">
 ul li {
@@ -39,6 +48,21 @@ ul li {
 </style>
 
 <body>
+	<c:if test="${!empty sessionScope.User and empty sessionScope.Admin}">
+		<c:import url="Header.jsp"></c:import>
+	</c:if>
+	<c:if test="${!empty sessionScope.Admin}">
+		<c:import url="AdminHeader.jsp"></c:import>
+	</c:if>
+	<section>
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="spinner-border loader" style='display: none'></div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<section class="vh-100 gradient-custom">
 		<div class="container py-5 h-100">
 			<div class="row justify-content-center align-items-center h-100">
@@ -55,10 +79,7 @@ ul li {
 								</div>
 								<span class="sr-only">Loading...</span>
 							</div> -->
-							<div class="container text-center">
-								<h5 id="massage"></h5>
-								<%=ServletUtilClass.getErrorMessage(request)%>
-							</div>
+							<div class="container text-center"></div>
 							<form action="Registration" method="post" id="form"
 								enctype="multipart/form-data">
 								<div class="row">
@@ -72,6 +93,9 @@ ul li {
 												value=<c:out value="${User.getFiratName() }" />> <label
 												for="fname" class="error"></label>
 										</div>
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("FirstNameError", request)%>
+										</p>
 									</div>
 									<div class="col-md-6 mb-4">
 
@@ -81,9 +105,10 @@ ul li {
 												class="form-control
 																	form-control-lg"
 												name="lname" value=<c:out value="${User.getLastName() }" />>
-
 										</div>
-
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("LastNameError", request)%>
+										</p>
 									</div>
 								</div>
 
@@ -99,7 +124,9 @@ ul li {
 												class="form-control" autocomplete="off"
 												value=<c:out value="${User.getDob() }" />>
 										</div>
-
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("DobError", request)%>
+										</p>
 									</div>
 									<div class="col-md-6 mb-4">
 
@@ -118,7 +145,9 @@ ul li {
 												id="maleGender" value="Male"
 												${User.getGender()=='Male' ? 'checked' : ''} />
 										</div>
-
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("GenderError", request)%>
+										</p>
 									</div>
 								</div>
 
@@ -132,6 +161,9 @@ ul li {
 																	form-control-lg"
 												name="email" value=<c:out value="${User.getEmail() }" />>
 										</div>
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("EmailError", request)%>
+										</p>
 										<p id="isEmailPresent"></p>
 									</div>
 									<div class="col-md-6 mb-4 pb-2">
@@ -144,7 +176,9 @@ ul li {
 												name="password"
 												value=<c:out value="${User.getPassword() }" />>
 										</div>
-
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("PasswordError", request)%>
+										</p>
 									</div>
 								</div>
 								<div class="row">
@@ -155,7 +189,9 @@ ul li {
 												type="tel" id="mobail" class="form-control form-control-lg"
 												name="mobail" value=<c:out value="${User.getMobailNo() }" />>
 										</div>
-
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("MobailError", request)%>
+										</p>
 									</div>
 									<div class="col-md-6 mb-4 pb-2">
 										<label class="form-label" for="mobail">Language</label>
@@ -202,38 +238,63 @@ ul li {
 																	form-control-lg"
 												value=<c:out value="${User.getAnswer() }" />>
 										</div>
-
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("AnserError", request)%>
+										</p>
 									</div>
 								</div>
 								<div class="row">
 
 									<div class="col-md-12">
-										<div class="mb-3">
+										<!-- <div class="mb-3">
 											<label for="formFile" class="form-label">Profile</label> <input
 												class="form-control" multiple type="file" id="userProfile"
-												name="profile"
-												onchange="document.getElementById('image-preview').src=
-																	window.URL.createObjectURL(this.files[0])">
+												name="profile">
+										</div> -->
+										<div class="form-group">
+											<div style="margin-bottom: 47px">
+												<label>Profile:</label>
+											</div>
+											<c:choose>
+												<c:when
+													test="${!empty sessionScope.User or !empty sessionScope.Admin}">
+													<c:forEach items="${UserProfile}" var='userprofile'>
+														<span id="${userprofile.imageId}" class="delete-profile">
+															<span class="uploadedimage"><img
+																src="data:image/jpg;base64,${userprofile.base64Image}"
+																class="image" width="100" height="100" /> <span
+																class="del-image"><i class="material-icons">clear</i></span></span>
+														</span>
+													</c:forEach>
+													<div class="input-images"></div>
+												</c:when>
+												<c:otherwise>
+													<div class="input-images"></div>
+												</c:otherwise>
+											</c:choose>
 										</div>
-										<!-- <div id="image-preview"></div> -->
-										<img id="image-preview"
-											src="data:image/jpg;base64,${User.getBase64Image()}"
-											width="100" height="100" />
+										<p style="color: red">
+											<%=ServletUtilClass.getErrorMessage("ProfileError", request)%>
+										</p>
 									</div>
-									<!-- <div class="col-md-12 text-center">
-										<ul>
-											<li><a class="cam" href="javascript:void(0)"><span><i
-														class="fa fa-camera fa-fw"></i></span> </a></li>
-
-										</ul>
-									</div>
-									<div class="col-md-12">
-										<div class="gallery"></div>
-									</div> -->
 								</div>
-								<!-- <div class="mt-4 pt-2">
-                                    <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
-                                </div> -->
+								<div class="addressError">
+									<p style="color: red">
+										<%=ServletUtilClass.getErrorMessage("CountryError", request)%>
+									</p>
+									<p style="color: red">
+										<%=ServletUtilClass.getErrorMessage("CityError", request)%>
+									</p>
+									<p style="color: red">
+										<%=ServletUtilClass.getErrorMessage("PincodeError", request)%>
+									</p>
+									<p style="color: red">
+										<%=ServletUtilClass.getErrorMessage("AddressError", request)%>
+									</p>
+									<p style="color: red">
+										<%=ServletUtilClass.getErrorMessage("StateError", request)%>
+									</p>
+								</div>
 								<div id="main-container">
 									<div class="panel card container-item">
 										<div class="panel-body">
@@ -248,16 +309,16 @@ ul li {
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_one_0">Country
-															</label> <input type="text" id="country_0" class="form-control"
-																name="country" maxlength="255"
+															</label> <input type="text" id="country_0"
+																class="form-control country unique" name="country"
+																maxlength="255"
 																value=<c:out value="${UserAddress[i].getCountry() }" />>
-															<p class="help-block help-block-error error"></p>
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_two_0">State
-															</label> <input type="text" id="state_0" class="form-control"
+															</label> <input type="text" id="state_0" class="form-control unique"
 																name="state" maxlength="255"
 																value=<c:out value="${UserAddress[i].getState() }" />>
 															<p class="help-block help-block-error"></p>
@@ -270,15 +331,17 @@ ul li {
 															<label class="control-label" for="city_0">City</label> <input
 																type="text" id="city_0" class="form-control" name="city"
 																maxlength="64"
-																value=<c:out value="${UserAddress[i].getCity() }" />>
+																value=<c:out value="${UserAddress[i].getCity() }"
+                                                                        />>
 															<p class="help-block help-block-error"></p>
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="city_0">PinCode</label>
-															<input type="text" id="pincode_0" class="form-control"
-																name="pincode" maxlength="64"
+															<input type="text" id="pincode_0"
+																class="form-control pincode" name="pincode"
+																maxlength="64"
 																value=<c:out value="${UserAddress[i].getPinCode() }" />>
 															<p class="help-block help-block-error"></p>
 														</div>
@@ -293,7 +356,7 @@ ul li {
 																name="address" maxlength="64"
 																value=<c:out value="${UserAddress[i].getAddress() }" />>
 															<p class="help-block help-block-error error"></p>
-														</div>
+															</div>
 													</div>
 												</div>
 												<div class="row">
@@ -311,14 +374,14 @@ ul li {
 								</div>
 								<div class="card">
 									<div>
-										<a class="btn btn-success btn-sm" id="add-more"
+										<a class="btn btn-primary btn-sm add-btn" id="add-more"
 											href="javascript:;" role="button"><i class="fa fa-plus"></i>
 											Add more address</a>
 									</div>
 								</div>
 
 								<div class="mt-4 pt-2">
-									<input class="btn btn-primary btn-lg" id="submit-btn"
+									<input class="btn btn-success btn-lg" id="submit-btn"
 										type="submit" value="Submit" />
 								</div>
 							</form>
@@ -330,19 +393,6 @@ ul li {
 		</div>
 	</section>
 
-
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>
-    <script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-		crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script
@@ -351,25 +401,22 @@ ul li {
 		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 	<script src="address-plugin/cloneData.js" type="text/javascript"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<!-- <script src="JS/custom.js"></script>
-	<script src="JS/validation.js"></script> -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="image-uploader-master/dist/image-uploader.min.js"></script>
 	<c:choose>
-		<c:when test="${!empty sessionScope.UserAddress }">
+		<c:when test="${!empty sessionScope.UserAddress}">
 			<script src="JS/editProfile.js"></script>
 		</c:when>
 	</c:choose>
-
-	<%-- 	<c:if test="${!empty sessionScope.UserAddress }">
-		<script src="JS/editProfile.js"></script>
-	</c:if> --%>
+	<!-- <script src="JS/custom.js"></script> -->
+	<!-- 	<script src="JS/validation.js"></script> -->
 	<script src="JS/postdata.js"></script>
 	<script src="JS/imagePreview.js"></script>
 	<script src="JS/getdata.js"></script>
-	<script src="multi-image/multiple-image-video(MIV).js"></script>
-	<script type="text/javascript">
-		$('.gallery').miv({
-			image : '.cam',
-			video : '.vid'
+
+	<script>
+		$('.input-images').imageUploader({
+			imagesInputName : 'profiles',
 		});
 	</script>
 
@@ -392,7 +439,7 @@ ul li {
 			removeConfirmMessage : 'Are you sure want to delete?', // confirm delete message
 			//append: '<a href="javascript:void(0)" class="remove-item btn btn-sm btn-danger remove-social-media">Remove</a>', // Set extra HTML append to clone HTML
 			minLimit : 1, // Default 1 set minimum clone HTML required
-			maxLimit : 5, // Default unlimited or set maximum limit of clone HTML
+			maxLimit : 20, // Default unlimited or set maximum limit of clone HTML
 			defaultRender : 1,
 			init : function() {
 				console.info(':: Initialize Plugin ::');
@@ -412,24 +459,6 @@ ul li {
 			}
 
 		});
-
-		/*$('.select2').select2({
-		    placeholder: 'Select a month'
-		});*/
-
-		// $(document).ready(function() {
-		//     $('.datepicker').datepicker();
-		// });
-		// Replace the <textarea id="editor1"> with a CKEditor
-		// instance, using default configuration.
-		/*CKEDITOR.editorConfig = function (config) {
-		    config.language = 'es';
-		    config.uiColor = '#F7B42C';
-		    config.height = 300;
-		    config.toolbarCanCollapse = true;
-		
-		};*/
-		//CKEDITOR.replace('editor1');
 	</script>
 </body>
 

@@ -40,12 +40,16 @@ response.setDateHeader("Expires", -1);
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<form action="Login" method="post">
+					<form action="Login" method="post">	
 						<div class="card">
 							<h3 class="text-center  pt-5" style="color: black;">Login
 								form</h3>
 							<div class="text-center intro">
 								<img src="https://i.imgur.com/uNiv4bD.png" width="160">
+							</div>
+							<div>
+								<p style="color: red"><%=ServletUtilClass.getErrorMessage("LoginError", request)%>
+								</p>
 							</div>
 							<div class="mt-4 text-center">
 								<span>Login with your credentials</span>
@@ -74,7 +78,6 @@ response.setDateHeader("Expires", -1);
 							</div>
 						</div>
 					</form>
-					<%=ServletUtilClass.getErrorMessage(request)%>
 				</div>
 			</div>
 		</div>

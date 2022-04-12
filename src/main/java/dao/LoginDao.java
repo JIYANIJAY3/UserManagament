@@ -5,31 +5,47 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginDao implements LoginDaoInterface {
 	static Logger log = Logger.getLogger(RegistrationDao.class.getName());
 
+	// Login User And User
 	public String loginUser(Connection conn, String Email, String password) {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String role = " ";
-		if (conn != null) {
-			try {
-				String sql = "SELECT Role FROM user WHERE Email=? and Password=?";
+		try {
+			if (conn != null) {
+				String sql = "SELECT * FROM user WHERE Email=?";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, Email);
-				ps.setString(2, password);
 				rs = ps.executeQuery();
-				rs.next();
-				role = rs.getString(1);
-				rs.close();
+				while (rs.next()) {
+					if (BCrypt.checkpw(password, rs.getString(11))) {
+						role = rs.getString(5);
+					}
+				}
+				log.info(role);
+//					role = rs.getString(1);
+//					rs.close();
+//					log.info("USER Role");
 				return role;
-			} catch (Exception e) {
-				log.info(e);
+			} else {
+				log.info("Connection Is Null");
 			}
-		} else {
-			log.info("Connection Is Null");
+		} catch (Exception e) {
+			log.info(e);
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+			} catch (Exception e2) {
+				log.info(e2);
+			}
 		}
 		return role;
 	}

@@ -5,18 +5,18 @@ import java.util.regex.Pattern;
 
 public class Validation {
 
-	public static String checkEmailValidation(String email) {
+	public static boolean checkEmailValidation(String email) {
 
 		String emailregex = "^[A-Za-z0-9+_.-]+@(.+)$";
 		Pattern pattern = Pattern.compile(emailregex);
 		Matcher matcher = pattern.matcher(email);
 
 		if (email.isEmpty()) {
-			return "Email Is Empty";
+			return false;
 		} else if (!matcher.matches()) {
-			return "Email Are Not Valide please enter proper email like - xxx@gmai.com";
+			return false;
 		} else {
-			return " ";
+			return true;
 		}
 	}
 
@@ -31,15 +31,104 @@ public class Validation {
 		}
 	}
 
-	public static String checkPassowrdValidation(String password) {
+	public static boolean checkDobValidation(String dob) {
+		if (dob.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkGenderIsEmpty(String gender) {
+		if (gender==null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkAnswerValidation(String ans) {
+		if (ans.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkMobailValidation(String mobail) {
+		if (mobail.isEmpty()) {
+			return false;
+		} else if (!Pattern.matches("^[0-9]*$", mobail)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkPassowrdValidation(String password) {
 
 		if (password.isEmpty()) {
-			return "Password Is Empty";
+			return false;
 		} else if (password.length() < 8) {
-			return "Minimum 8 digit Required";
+			return false;
 		} else {
-			return " ";
+			return true;
 		}
+	}
 
+	public static boolean checkCountryValidation(String country) {
+		if (country.isEmpty()||country.isBlank()) {
+			return false;
+		} else if (!Pattern.matches("^[a-zA-Z]+", country)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkPincodeValidation(String pincode) {
+		if (pincode.isEmpty()) {
+			return false;
+		} else if (!Pattern.matches("^[0-9]+", pincode)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkStateValidation(String state) {
+		if (state.isEmpty() || state.isBlank()) {
+			return false;
+		} else if (!Pattern.matches("^[a-zA-Z]+", state)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkCityValidation(String city) {
+		if (city.isEmpty()||city.isBlank()) {
+			return false;
+		} else if (!Pattern.matches("^[a-zA-Z]+", city)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkAddressValidation(String address) {
+		if (address.isEmpty()||address.isBlank()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean checkProfileValidation(int i) {
+		if (i==0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

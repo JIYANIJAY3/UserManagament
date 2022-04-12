@@ -33,7 +33,7 @@ response.setDateHeader("Expires", -1);
 </head>
 <body>
 
-	<c:import url="Header.jsp"></c:import>
+	<c:import url="AdminHeader.jsp"></c:import>
 	<jsp:useBean id="Admin" scope="session" class="bean.UserBean" />
 	<c:choose>
 		<c:when test="${Admin.getUserId()!=0 }">
@@ -155,6 +155,7 @@ response.setDateHeader("Expires", -1);
 			<c:redirect url="login.jsp" />
 		</c:otherwise>
 	</c:choose>
+	<c:import url="footer.jsp"></c:import>
 
 </body>
 </html>

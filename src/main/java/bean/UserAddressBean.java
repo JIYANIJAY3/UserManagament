@@ -1,9 +1,11 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserAddressBean {
+public class UserAddressBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private int UserId;
 	private int addressId;
 	private String country;

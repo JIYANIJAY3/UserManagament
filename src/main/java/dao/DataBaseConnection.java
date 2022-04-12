@@ -1,13 +1,18 @@
 package dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 public class DataBaseConnection {
+
 	private static Connection conn = null;
 
 	private DataBaseConnection() {
@@ -15,17 +20,35 @@ public class DataBaseConnection {
 
 	static Logger log = Logger.getLogger(DataBaseConnection.class.getName());
 	static {
-		String url = "jdbc:mysql://localhost:3306/usermanagment";
-		String user = "root";
-		String password = "Jiyani@123.";
-
+		BasicConfigurator.configure();
+		Properties prop = new Properties();
+		InputStream input = null;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(url, user, password);
-			log.info("Connection Successful....");
-		} catch (ClassNotFoundException | SQLException e) {
-			log.error(e);
+			input = new FileInputStream(
+					"C:\\Users\\ADMIN\\eclipse-workspace\\UserManagement\\src\\main\\webapp\\WEB-INF\\lib\\database.properties");
+			prop.load(input);
+			String url = "jdbc:mysql://localhost:3306/usermanagment";
+			String user = prop.getProperty("User");
+			String password = prop.getProperty("Password");
+
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				conn = DriverManager.getConnection(url, user, password);
+				log.info("Connection Successful....");
+			} catch (ClassNotFoundException | SQLException e) {
+				log.error(e);
+			}
+		} catch (IOException e1) {
+			log.info(e1);
+		} finally {
+			try {
+				if (input != null)
+					input.close();
+			} catch (IOException e) {
+				log.info(e);
+			}
 		}
+
 	}
 
 	public static Connection getConnection() {
@@ -34,16 +57,11 @@ public class DataBaseConnection {
 
 	public static Connection closeConnection() {
 		try {
-			conn.close();
+			if (conn != null)
+				conn.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.info(e);
 		}
 		return conn;
-	}
-	
-	public static PreparedStatement getPs()
-	{
-		PreparedStatement ps = null;
-		return ps;
 	}
 }

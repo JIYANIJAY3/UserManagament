@@ -1,0 +1,13 @@
+{
+    "folders": [
+		{
+			"name": "webapp",
+			"path": "."
+		},
+		{
+			"name": "multi-video-image-upload",
+			"path": "..\\..\\..\\..\\..\\Downloads\\multi-video-image-upload\\multi-video-image-upload"
+		}
+	],
+    "settings": {}
+}

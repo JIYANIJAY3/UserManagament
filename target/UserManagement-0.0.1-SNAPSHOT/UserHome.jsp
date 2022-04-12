@@ -35,7 +35,7 @@ response.setDateHeader("Expires", -1);
 <body>
 	<c:import url="Header.jsp"></c:import>
 	<c:choose>
-		<c:when test="${User.getUserId()!=0 }">
+		<c:when test="${!empty sessionScope.User}">
 			<div class="section">
 				<div class="container">
 					<div class="row">
@@ -104,9 +104,10 @@ response.setDateHeader("Expires", -1);
 		</c:otherwise>
 	</c:choose>
 
-
 	<div class="result"></div>
 	<script src="JS/getdata.js"></script>
+
+	<c:import url="footer.jsp"></c:import>
 </body>
 
 </html>
