@@ -25,7 +25,7 @@ public class DataBaseConnection {
 		InputStream input = null;
 		try {
 			input = new FileInputStream(
-					"C:\\Users\\ADMIN\\eclipse-workspace\\UserManagement\\src\\main\\webapp\\WEB-INF\\lib\\database.properties");
+					"\\Users\\ADMIN\\eclipse-workspace\\UserManagement\\src\\main\\webapp\\WEB-INF\\lib\\database.properties");
 			prop.load(input);
 			String url = "jdbc:mysql://localhost:3306/usermanagment";
 			String user = prop.getProperty("User");

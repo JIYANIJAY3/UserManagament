@@ -48,6 +48,7 @@ ul li {
 </style>
 
 <body>
+	<jsp:useBean id="test" class="util.ServletUtilClass" />
 	<c:if test="${!empty sessionScope.User and empty sessionScope.Admin}">
 		<c:import url="Header.jsp"></c:import>
 	</c:if>
@@ -88,7 +89,7 @@ ul li {
 											value="${User.getUserId() }">
 										<div class="form-outline">
 											<label class="form-label" for="firstName" name="fname">First
-												Name</label> <input type="text" id="firstName"
+												Name</label> <input required="required" type="text" id="firstName" required
 												class="form-control form-control-lg" name="fname"
 												value=<c:out value="${User.getFiratName() }" />> <label
 												for="fname" class="error"></label>
@@ -311,15 +312,15 @@ ul li {
 															<label class="control-label" for="address_line_one_0">Country
 															</label> <input type="text" id="country_0"
 																class="form-control country unique" name="country"
-																maxlength="255"
+																maxlength="255" required
 																value=<c:out value="${UserAddress[i].getCountry() }" />>
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label" for="address_line_two_0">State
-															</label> <input type="text" id="state_0" class="form-control unique"
-																name="state" maxlength="255"
+															</label> <input type="text" id="state_0"
+																class="form-control unique" name="state" maxlength="255"
 																value=<c:out value="${UserAddress[i].getState() }" />>
 															<p class="help-block help-block-error"></p>
 														</div>
@@ -356,7 +357,7 @@ ul li {
 																name="address" maxlength="64"
 																value=<c:out value="${UserAddress[i].getAddress() }" />>
 															<p class="help-block help-block-error error"></p>
-															</div>
+														</div>
 													</div>
 												</div>
 												<div class="row">

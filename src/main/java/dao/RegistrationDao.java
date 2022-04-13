@@ -362,8 +362,11 @@ public class RegistrationDao implements RegistrationDaoInterface {
 	// Update Password.
 	@Override
 	public int updatePassword(Connection conn, int UserId, String Password) {
+		log.info("here");
 		PreparedStatement ps = null;
 		int status = 0;
+		log.info(Password);
+		log.info(UserId);
 		try {
 			if (conn != null) {
 				String sql = "update user set Password=? where UserId=?";

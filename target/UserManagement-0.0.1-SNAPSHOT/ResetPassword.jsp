@@ -30,8 +30,8 @@
 			<form action="UpdatePassword" method="post">
 				<input type="hidden" name="UserId"
 					value="<c:out value=" ${requestScope.UserId } "></c:out>">
-				Enter Password: <input type="password" name="password">
-				<input type="submit" value="submit">
+				Enter Password: <input type="password" name="password"> <input
+					type="submit" value="submit">
 			</form>
 			</div-col-md-6>
 		</div>

@@ -42,7 +42,7 @@ public class ForgotPassword extends HttpServlet {
 
 		UserInterface userInterface = new UserImpl();
 		int status = userInterface.forgetPassword(conn, email,answer);
-		log.info(status);
+		log.info("status "+status);
 		if(status>0)
 		{
 			request.setAttribute("UserId",status);

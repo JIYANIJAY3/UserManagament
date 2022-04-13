@@ -2,36 +2,100 @@ $(document).ready(function() {
 
 	var count = 0;
 	var isError = false;
-	
-	/*$(".add-btn").click(function() {
-	count++;
-	console.log("count " + count);
-	var regexname = /(^[0-9]*$)/;
-	for (let i = 1; i <= count; i++) {
-		$("#pincode_" + i).keyup(function(e) {
-			var pincode = $("#pincode_" + i).val();
-			console.log(pincode)
-			if (!pincode.match(regexname)) {
-				console.log("here");
-				isError = true;
-				console.log("Error " + isError)
-			}
-			else {
-				isError = false;
-				console.log(isError)
-			}
-		})
-	}
-	for (let i = 1; i <= count; i++) {
-		$("#city" + i).keyup(function(e) {
-			console.log("#city" + i)
-			var pincode = $("#city" + i).val();
-			if (pincode.match("/^[0-9]/")) {
-				isError = true;
-			}
-		})
-	}*/
 
+	$(".add-btn").click(function() {
+		count++;
+		console.log("count " + count);
+
+		var regexpincode = /(^[0-9]*$)/;
+		var regescountry = /^[a-zA-Z\s]+$/;
+		var regexstate = /^[a-zA-Z\s]+$/;
+		var regexcity = /^[a-zA-Z\s]+$/;
+		var regexaddress = /^[a-zA-Z\s]+$/;
+
+		for (let i = 1; i <= count; i++) {
+			
+			
+			$("#country_" + i).keyup(function() {
+				var country = $(this).val();
+				console.log(country)
+				if (!country.match(regescountry)) {
+					console.log("here");
+					isError = true;
+					console.log("Error " + isError)
+				}
+				else {
+					isError = false;
+					console.log(isError)
+				}
+			})
+
+			$("#state_" + i).keyup(function() {
+				var state = $(this).val();
+				console.log(state)
+				if (!state.match(regexstate)) {
+					console.log("here");
+					isError = true;
+					console.log("Error " + isError)
+				}
+				else {
+					isError = false;
+					console.log(isError)
+				}
+			})
+
+			$("#city_" + i).keyup(function() {
+				var city = $(this).val();
+				console.log(city)
+				if (!city.match(regexcity)) {
+					console.log("here");
+					isError = true;
+					console.log("Error " + isError)
+				}
+				else {
+					isError = false;
+					console.log(isError)
+				}
+			})
+
+			$("#pincode_" + i).keyup(function() {
+				var pincode = $(this).val();
+				console.log(pincode)
+				if (!pincode.match(regexpincode)) {
+					console.log("here");
+					isError = true;
+					console.log("Error " + isError)
+				}
+				else {
+					isError = false;
+					console.log(isError)
+				}
+			})
+
+			$("#address_" + i).keyup(function() {
+				var address = $(this).val();
+				console.log(address)
+				if (!address.match(regexaddress)) {
+					console.log("here");
+					isError = true;
+					console.log("Error " + isError)
+				}
+				else {
+					isError = false;
+					console.log(isError)
+				}
+			})
+		}
+	})
+
+	$('.remove-btn').click(function() {
+		count--;
+		console.log("remove count " + count)
+	})
+
+	$.validator.addMethod('regex', function(value, element, regex) {
+		return this.optional(element) || regex.test(value);
+	}, jQuery.validator.format("Formate Not Match"));
 
 	$("#submit-btn").click(function() {
 		$("#form").validate({
@@ -53,7 +117,7 @@ $(document).ready(function() {
 				gender: "required",
 				email: {
 					required: true,
-					email: true
+					regex: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 				},
 				password: {
 					required: true,
@@ -61,7 +125,9 @@ $(document).ready(function() {
 				},
 				mobail: {
 					required: true,
-					digits: true
+					digits: true,
+					minlength: 10,
+					maxlength: 10
 				},
 				language: {
 					required: true
@@ -84,6 +150,8 @@ $(document).ready(function() {
 				pincode: {
 					required: true,
 					digits: true,
+					minlength: 6,
+					maxlength: 6
 				},
 				address: {
 					required: true
@@ -103,7 +171,8 @@ $(document).ready(function() {
 				gender: "* Plese Select One",
 				email: {
 					required: "* Email Is Required",
-					email: "* Enter Valide Email"
+					email: "* Enter Valide Email",
+					regex: "Enter Valid Email Formate Enter Email like xxx@xxx.xxx"
 				},
 				password: {
 					required: "* Password Is Required",

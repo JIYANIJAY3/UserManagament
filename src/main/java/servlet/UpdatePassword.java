@@ -37,13 +37,15 @@ public class UpdatePassword extends HttpServlet {
 		UserInterface userInterface = new UserImpl();
 		String pass = PassWordEncriptionDecription.hashPassword(password);
 		log.info(pass);
+		log.info(UserId);
+		
 		//Check Password are Update or Not
-		int status = userInterface.updatePassword(conn, Integer.parseInt(UserId), pass);
+		int status = userInterface.updatePassword(conn, Integer.parseInt(UserId.trim()), pass);
 		
 		log.info("update password status "+status);
 		if (status > 0) {
-			request.setAttribute("resetPassword", "Reset Password");
-			RequestDispatcher rd = request.getRequestDispatcher("ForgotPassword.jsp");
+			request.setAttribute("resetPassword", "Reset Password succsefully");
+			RequestDispatcher rd = request.getRequestDispatcher("ForgetPassword.jsp");
 			rd.include(request, response);
 		} else {
 			response.sendRedirect("login.jsp");
